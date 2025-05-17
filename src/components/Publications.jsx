@@ -1,38 +1,60 @@
+import { useState, useEffect } from 'react';
+
 function Publications() {
-  const publications = [
-    {
-      title: "Neural correlates of decision-making under uncertainty",
-      authors: "Chen, Y., et al.",
-      journal: "Nature Neuroscience",
-      year: "2023",
-      doi: "10.1038/s41593-023-1234-5"
-    },
-    {
-      title: "Cognitive control networks in the human brain",
-      authors: "Chen, Y., et al.",
-      journal: "Neuron",
-      year: "2022",
-      doi: "10.1016/j.neuron.2022.56789"
-    },
-    {
-      title: "Learning mechanisms in the prefrontal cortex",
-      authors: "Chen, Y., et al.",
-      journal: "Science",
-      year: "2021",
-      doi: "10.1126/science.2021.12345"
-    }
-  ];
+  const [publications, setPublications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('/src/data/publications.json')
+      .then(response => response.json())
+      .then(data => {
+        setPublications(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Failed to load publications');
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
+        <div className="text-[#8A8B8C]">Loading publications...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
+        <div className="text-[#8A8B8C]">{error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Publications</h2>
+      <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
       <div className="space-y-6">
         {publications.map((pub, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">{pub.title}</h3>
-            <p className="text-gray-600">{pub.authors}</p>
-            <p className="text-gray-500">{pub.journal}, {pub.year}</p>
-            <p className="text-blue-600 hover:underline cursor-pointer">DOI: {pub.doi}</p>
+          <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+            <h3 className="text-xl font-semibold text-[#A31F34] mb-2">{pub.title}</h3>
+            <p className="text-[#8A8B8C]">{pub.authors.join(', ')}</p>
+            <p className="text-[#8A8B8C]">{pub.journal}, {pub.year}</p>
+            {pub.doi && (
+              <a 
+                href={`https://doi.org/${pub.doi}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#A31F34] hover:underline cursor-pointer"
+              >
+                DOI: {pub.doi}
+              </a>
+            )}
           </div>
         ))}
       </div>
@@ -40,4 +62,4 @@ function Publications() {
   );
 }
 
-export default Publications
+export default Publications;
