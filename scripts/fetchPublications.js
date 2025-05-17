@@ -62,17 +62,76 @@ async function fetchPublications() {
     const publications = await Promise.all(
       data.group.map(async work => {
         const workSummary = work['work-summary'][0];
+        
+        // Get detailed work information
+        const detailResponse = await fetch(
+          workSummary['path'],
+          { headers }
+        );
+        const detailData = await detailResponse.json();
+
+        // Extract contributors with proper formatting
+        const contributors = detailData.contributors?.contributor || [];
+        const authors = contributors.map(c => {
+          const creditName = c['credit-name']?.value;
+          const givenNames = c['given-names']?.value;
+          const familyName = c['family-name']?.value;
+          
+          if (creditName) {
+            return creditName;
+          } else if (givenNames && familyName) {
+            return `${givenNames} ${familyName}`;
+          }
+          return null;
+        }).filter(Boolean);
+
+        // Extract journal title with fallback
+        const journalTitle = workSummary['journal-title']?.value || 
+                           detailData['journal-title']?.value || 
+                           'Preprint';
+
+        // Extract DOI
+        const doi = workSummary['external-ids']?.['external-id']
+          ?.find(id => id['external-id-type'] === 'doi')
+          ?.['external-id-value'];
+
+        // Extract URL with DOI fallback
+        let url = workSummary.url?.value;
+        if (!url && doi) {
+          url = `https://doi.org/${doi}`;
+        }
+
+        // Extract year
+        const year = workSummary['publication-date']?.year?.value?.toString() || 'N/A';
+
+        // Add some default tags based on journal and title
+        const tags = new Set();
+        const lowerTitle = workSummary.title['title'].value.toLowerCase();
+        
+        if (lowerTitle.includes('neural') || lowerTitle.includes('brain')) tags.add('Neuroscience');
+        if (lowerTitle.includes('reproducible') || lowerTitle.includes('reproducibility')) tags.add('Reproducibility');
+        if (lowerTitle.includes('software') || lowerTitle.includes('workflow')) tags.add('Software Development');
+        if (lowerTitle.includes('neuroimaging') || lowerTitle.includes('fmri')) tags.add('Neuroimaging');
+        if (lowerTitle.includes('social') || lowerTitle.includes('communication')) tags.add('Social Science');
+        if (journalTitle.toLowerCase().includes('comput')) tags.add('Computational Methods');
+
         return {
           title: workSummary.title['title'].value,
-          authors: workSummary['contributors']?.contributor?.map(c => c['credit-name'].value) || [],
-          journal: workSummary['journal-title']?.value || 'Preprint',
-          year: workSummary['publication-date']?.year?.value?.toString() || 'N/A',
-          url: workSummary.url?.value || null,
-          doi: workSummary['external-ids']?.['external-id']?.find(id => id['external-id-type'] === 'doi')?.['external-id-value'] || null,
-          tags: []
+          authors: authors,
+          journal: journalTitle,
+          year: year,
+          url: url,
+          doi: doi,
+          tags: Array.from(tags)
         };
       })
     );
+
+    // Sort publications by year (descending) and then by title
+    publications.sort((a, b) => {
+      if (b.year !== a.year) return parseInt(b.year) - parseInt(a.year);
+      return a.title.localeCompare(b.title);
+    });
 
     await fs.mkdir(path.join(process.cwd(), 'src/data'), { recursive: true });
     await fs.writeFile(
