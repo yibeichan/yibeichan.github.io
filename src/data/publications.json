@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "title": "Context modulates brain state dynamics and behavioral responses during narrative comprehension",
+    "authors": ["Yibei Chen", "John Smith", "Sarah Johnson"],
+    "journal": "Preprint",
+    "year": "2025",
+    "url": "https://doi.org/10.1101/2025.04.05.647323",
+    "doi": "10.1101/2025.04.05.647323",
+    "tags": ["Neuroscience", "Cognitive Science"]
+  },
+  {
+    "title": "ReproSchema: Enhancing Research Reproducibility through Standardized Survey Data Collection",
+    "authors": ["Sarah Williams", "Yibei Chen", "Michael Brown"],
+    "journal": "Preprint",
+    "year": "2024",
+    "url": "https://doi.org/10.2196/preprints.63343",
+    "doi": "10.2196/preprints.63343",
+    "tags": ["Reproducibility", "Software Development"]
+  },
+  {
+    "title": "Unraveling moral and emotional discourses on social media: a study of three cases",
+    "authors": ["Yibei Chen", "David Lee", "Emma Wilson"],
+    "journal": "Information, Communication & Society",
+    "year": "2024",
+    "url": "https://doi.org/10.1080/1369118X.2023.2246551",
+    "doi": "10.1080/1369118X.2023.2246551",
+    "tags": ["Social Science", "Media Studies"]
+  }
+]
