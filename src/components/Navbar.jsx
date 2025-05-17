@@ -16,7 +16,7 @@ function Navbar() {
           <div className="flex space-x-7">
             <div>
               <Link to="/" className="flex items-center py-4">
-                <span className="font-semibold text-gray-500 text-lg">About</span>
+                <span className="font-semibold text-[#8A8B8C] hover:text-[#A31F34] transition duration-300 text-lg">About</span>
               </Link>
             </div>
           </div>
@@ -25,7 +25,7 @@ function Navbar() {
               <Link
                 key={index}
                 to={item.url}
-                className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+                className="py-4 px-2 text-[#8A8B8C] font-semibold hover:text-[#A31F34] transition duration-300"
               >
                 {item.name}
               </Link>
