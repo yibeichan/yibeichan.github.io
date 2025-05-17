@@ -64,11 +64,25 @@ function Publications() {
     setActiveFilters(new Set());
   };
 
+  const formatAuthors = (authors) => {
+    return authors.map((author, index) => {
+      const isYibei = author.includes('Yibei Chen') || author === 'Chen, Y.';
+      return (
+        <span key={index}>
+          {index > 0 && ', '}
+          <span className={isYibei ? 'underline font-medium' : ''}>
+            {author}
+          </span>
+        </span>
+      );
+    });
+  };
+
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
-        <div className="text-[#8A8B8C]">Loading publications...</div>
+        <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
+        <div className="text-black">Loading publications...</div>
       </div>
     );
   }
@@ -76,15 +90,15 @@ function Publications() {
   if (error) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
-        <div className="text-[#8A8B8C]">{error}</div>
+        <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
+        <div className="text-black">{error}</div>
       </div>
     );
   }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-[#A31F34] mb-8">Publications</h2>
+      <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
       
       <div className="mb-8">
         <div className="relative">
@@ -93,13 +107,13 @@ function Publications() {
             placeholder="Search by title or author..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-md border-[#8A8B8C] shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34] py-3 px-4 bg-gray-50"
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34] py-3 px-4 bg-gray-50"
           />
         </div>
 
         {allTags.length > 0 && (
           <div className="mt-4">
-            <h3 className="text-sm font-medium text-[#8A8B8C] mb-2">Filter by topic:</h3>
+            <h3 className="text-sm font-medium text-black mb-2">Filter by topic:</h3>
             <div className="flex flex-wrap gap-2">
               {allTags.map(tag => (
                 <button
@@ -108,7 +122,7 @@ function Publications() {
                   className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors
                     ${activeFilters.has(tag) 
                       ? 'bg-[#A31F34] text-white' 
-                      : 'bg-gray-100 text-[#8A8B8C] hover:bg-[#A31F34] hover:text-white'}`}
+                      : 'bg-gray-100 text-black hover:bg-[#A31F34] hover:text-white'}`}
                 >
                   {tag}
                 </button>
@@ -132,21 +146,21 @@ function Publications() {
 
           return (
             <div key={year}>
-              <h3 className="text-2xl font-semibold text-[#A31F34] mb-6 pb-2 border-b border-gray-200">
+              <h3 className="text-2xl font-semibold text-black mb-6 pb-2 border-b border-gray-200">
                 {year}
               </h3>
               <div className="space-y-6">
                 {yearPublications.map((pub, index) => (
                   <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 className="text-xl font-semibold text-[#A31F34] mb-2">{pub.title}</h3>
-                    <p className="text-[#8A8B8C] mb-2">{pub.authors.join(', ')}</p>
-                    <p className="text-[#8A8B8C] mb-2">{pub.journal}, {pub.year}</p>
+                    <h3 className="text-xl font-semibold text-black mb-2">{pub.title}</h3>
+                    <p className="text-black mb-2">{formatAuthors(pub.authors)}</p>
+                    <p className="text-black mb-2">{pub.journal}, {pub.year}</p>
                     {pub.tags && pub.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-2">
                         {pub.tags.map(tag => (
                           <span
                             key={tag}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-[#8A8B8C]"
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-black"
                           >
                             {tag}
                           </span>
