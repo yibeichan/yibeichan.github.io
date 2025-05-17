@@ -20,15 +20,17 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function fetchWithRetry(url, options, maxRetries = 5, initialBackoff = 2000) {
+async function fetchWithRetry(url, options, maxRetries = 8, initialBackoff = 5000) {
   let lastError;
   let backoff = initialBackoff;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
+      console.log(`Attempt ${attempt}/${maxRetries} for ${url}`);
+      
       const response = await fetch(url, {
         ...options,
-        timeout: 30000, // 30 second timeout
+        timeout: 60000, // Increased timeout to 60 seconds
       });
       
       // Handle rate limiting explicitly
@@ -39,6 +41,10 @@ async function fetchWithRetry(url, options, maxRetries = 5, initialBackoff = 200
         continue;
       }
       
+      // Log response status and headers for debugging
+      console.log(`Response status: ${response.status}`);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -46,18 +52,25 @@ async function fetchWithRetry(url, options, maxRetries = 5, initialBackoff = 200
       return response;
     } catch (error) {
       lastError = error;
+      console.error(`Attempt ${attempt} failed:`, {
+        error: error.message,
+        code: error.code,
+        type: error.type,
+        name: error.name
+      });
       
       // Check if we should retry based on error type
       const shouldRetry = error.code === 'ECONNRESET' ||
                          error.code === 'ECONNREFUSED' ||
                          error.code === 'ETIMEDOUT' ||
-                         error.type === 'system';
+                         error.type === 'system' ||
+                         error.message.includes('socket hang up');
 
       if (!shouldRetry || attempt === maxRetries) {
         throw new Error(`Failed after ${attempt} attempts. Last error: ${error.message}`);
       }
 
-      console.log(`Attempt ${attempt} failed, retrying in ${backoff}ms...`);
+      console.log(`Waiting ${backoff}ms before retry...`);
       await delay(backoff);
       backoff *= 2; // Exponential backoff
     }
@@ -67,11 +80,14 @@ async function fetchWithRetry(url, options, maxRetries = 5, initialBackoff = 200
 async function getOrcidAccessToken() {
   try {
     console.log('Getting ORCID access token...');
+    console.log('Using client ID:', CLIENT_ID.substring(0, 4) + '...');
+    
     const tokenResponse = await fetchWithRetry('https://pub.orcid.org/oauth/token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': 'Node/FetchPublications'
       },
       body: querystring.stringify({
         'client_id': CLIENT_ID,
@@ -82,9 +98,11 @@ async function getOrcidAccessToken() {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log('Successfully obtained access token');
     return tokenData.access_token;
   } catch (error) {
     console.error('Error getting access token:', error.message);
+    console.error('Full error details:', error);
     return null;
   }
 }
@@ -98,7 +116,8 @@ async function fetchPublications() {
 
     const headers = {
       'Accept': 'application/vnd.orcid+json',
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': `Bearer ${accessToken}`,
+      'User-Agent': 'Node/FetchPublications'
     };
 
     const response = await fetchWithRetry(
