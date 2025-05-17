@@ -73,14 +73,16 @@ async function fetchPublications() {
         // Extract contributors with proper formatting
         const contributors = detailData.contributors?.contributor || [];
         const authors = contributors.map(c => {
-          const creditName = c['credit-name']?.value;
-          const givenNames = c['given-names']?.value;
-          const familyName = c['family-name']?.value;
-          
-          if (creditName) {
-            return creditName;
-          } else if (givenNames && familyName) {
+          if (c['credit-name']?.value) {
+            return c['credit-name'].value;
+          }
+          const givenNames = c['given-names']?.value || '';
+          const familyName = c['family-name']?.value || '';
+          if (givenNames && familyName) {
             return `${givenNames} ${familyName}`;
+          }
+          if (familyName) {
+            return `${familyName}, ${givenNames.charAt(0)}.`;
           }
           return null;
         }).filter(Boolean);
@@ -104,16 +106,36 @@ async function fetchPublications() {
         // Extract year
         const year = workSummary['publication-date']?.year?.value?.toString() || 'N/A';
 
-        // Add some default tags based on journal and title
+        // Generate intelligent tags based on content
         const tags = new Set();
         const lowerTitle = workSummary.title['title'].value.toLowerCase();
+        const lowerJournal = journalTitle.toLowerCase();
         
-        if (lowerTitle.includes('neural') || lowerTitle.includes('brain')) tags.add('Neuroscience');
-        if (lowerTitle.includes('reproducible') || lowerTitle.includes('reproducibility')) tags.add('Reproducibility');
-        if (lowerTitle.includes('software') || lowerTitle.includes('workflow')) tags.add('Software Development');
-        if (lowerTitle.includes('neuroimaging') || lowerTitle.includes('fmri')) tags.add('Neuroimaging');
-        if (lowerTitle.includes('social') || lowerTitle.includes('communication')) tags.add('Social Science');
-        if (journalTitle.toLowerCase().includes('comput')) tags.add('Computational Methods');
+        // Research areas
+        if (lowerTitle.includes('neural') || lowerTitle.includes('brain') || lowerJournal.includes('neuro')) {
+          tags.add('Neuroscience');
+        }
+        if (lowerTitle.includes('reproducible') || lowerTitle.includes('reproducibility')) {
+          tags.add('Reproducibility');
+        }
+        if (lowerTitle.includes('software') || lowerTitle.includes('workflow')) {
+          tags.add('Software Development');
+        }
+        if (lowerTitle.includes('neuroimaging') || lowerTitle.includes('fmri') || lowerTitle.includes('bids')) {
+          tags.add('Neuroimaging');
+        }
+        if (lowerTitle.includes('social') || lowerTitle.includes('communication')) {
+          tags.add('Social Science');
+        }
+        if (lowerTitle.includes('decision') || lowerTitle.includes('cognitive')) {
+          tags.add('Cognitive Science');
+        }
+        if (lowerJournal.includes('comput') || lowerTitle.includes('computational')) {
+          tags.add('Computational Methods');
+        }
+        if (lowerTitle.includes('media') || lowerTitle.includes('news')) {
+          tags.add('Media Studies');
+        }
 
         return {
           title: workSummary.title['title'].value,
@@ -122,7 +144,7 @@ async function fetchPublications() {
           year: year,
           url: url,
           doi: doi,
-          tags: Array.from(tags)
+          tags: Array.from(tags).sort()
         };
       })
     );
