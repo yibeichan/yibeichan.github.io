@@ -8,10 +8,29 @@ const ORCID_ID = '0000-0003-2882-0900';
 const CLIENT_ID = 'APP-EUPGISZZCIOR8G50';
 const CLIENT_SECRET = 'dbd56f87-2adb-4ebe-b599-2ec679eae5c4';
 
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchWithRetry(url, options, retries = 3, backoff = 1000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        timeout: 10000, // 10 second timeout
+      });
+      return response;
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      console.log(`Attempt ${i + 1} failed, retrying in ${backoff}ms...`);
+      await delay(backoff);
+      backoff *= 2; // exponential backoff
+    }
+  }
+}
+
 async function getOrcidAccessToken() {
   try {
     console.log('Getting ORCID access token...');
-    const tokenResponse = await fetch('https://pub.orcid.org/oauth/token', {
+    const tokenResponse = await fetchWithRetry('https://pub.orcid.org/oauth/token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -49,7 +68,7 @@ async function fetchPublications() {
       headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `https://pub.orcid.org/v3.0/${ORCID_ID}/works`,
       { headers }
     );
@@ -64,10 +83,16 @@ async function fetchPublications() {
         const workSummary = work['work-summary'][0];
         
         // Get detailed work information
-        const detailResponse = await fetch(
-          workSummary['path'],
+        const detailResponse = await fetchWithRetry(
+          `https://pub.orcid.org/v3.0/${ORCID_ID}/work/${workSummary['put-code']}`,
           { headers }
         );
+        
+        if (!detailResponse.ok) {
+          console.warn(`Failed to fetch details for work ${workSummary['put-code']}`);
+          return null;
+        }
+
         const detailData = await detailResponse.json();
 
         // Extract contributors with proper formatting
@@ -149,8 +174,8 @@ async function fetchPublications() {
       })
     );
 
-    // Sort publications by year (descending) and then by title
-    publications.sort((a, b) => {
+    // Remove any null entries and sort publications
+    const validPublications = publications.filter(Boolean).sort((a, b) => {
       if (b.year !== a.year) return parseInt(b.year) - parseInt(a.year);
       return a.title.localeCompare(b.title);
     });
@@ -158,16 +183,23 @@ async function fetchPublications() {
     await fs.mkdir(path.join(process.cwd(), 'src/data'), { recursive: true });
     await fs.writeFile(
       path.join(process.cwd(), 'src/data/publications.json'),
-      JSON.stringify(publications, null, 2)
+      JSON.stringify(validPublications, null, 2)
     );
 
-    console.log(`Successfully saved ${publications.length} publications!`);
+    console.log(`Successfully saved ${validPublications.length} publications!`);
   } catch (error) {
     console.error('Error fetching publications:', error);
-    await fs.writeFile(
-      path.join(process.cwd(), 'src/data/publications.json'),
-      JSON.stringify([], null, 2)
-    );
+    // Don't overwrite existing publications.json if fetch fails
+    const existingPublications = await fs.readFile(
+      path.join(process.cwd(), 'src/data/publications.json')
+    ).catch(() => '[]');
+    
+    if (existingPublications === '[]') {
+      await fs.writeFile(
+        path.join(process.cwd(), 'src/data/publications.json'),
+        '[]'
+      );
+    }
   }
 }
 
