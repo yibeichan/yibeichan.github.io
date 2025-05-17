@@ -64,18 +64,9 @@ function Publications() {
     setActiveFilters(new Set());
   };
 
-  const formatAuthors = (authors) => {
-    return authors.map((author, index) => {
-      const isYibei = author.includes('Yibei Chen') || author === 'Chen, Y.';
-      return (
-        <span key={index}>
-          {index > 0 && ', '}
-          <span className={isYibei ? 'underline font-medium' : ''}>
-            {author}
-          </span>
-        </span>
-      );
-    });
+  const formatAuthor = (author) => {
+    const isYibei = author.includes('Yibei Chen') || author === 'Chen, Y.' || author === 'Chen, Yibei';
+    return isYibei ? <u>{author}</u> : author;
   };
 
   if (loading) {
@@ -119,10 +110,10 @@ function Publications() {
                 <button
                   key={tag}
                   onClick={() => toggleFilter(tag)}
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                     ${activeFilters.has(tag) 
                       ? 'bg-[#A31F34] text-white' 
-                      : 'bg-gray-100 text-black hover:bg-[#A31F34] hover:text-white'}`}
+                      : 'bg-gray-100 text-gray-800 hover:bg-[#A31F34] hover:text-white'}`}
                 >
                   {tag}
                 </button>
@@ -151,41 +142,50 @@ function Publications() {
               </h3>
               <div className="space-y-6">
                 {yearPublications.map((pub, index) => (
-                  <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 className="text-xl font-semibold text-black mb-2">{pub.title}</h3>
-                    <p className="text-black mb-2">{formatAuthors(pub.authors)}</p>
-                    <p className="text-black mb-2">{pub.journal}, {pub.year}</p>
-                    {pub.tags && pub.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {pub.tags.map(tag => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-black"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                  <div key={index} className="publication-item bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {pub.tags?.map(tag => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <h3 className="text-lg font-semibold text-gray-900 font-serif">{pub.title}</h3>
+                    
+                    <p className="text-gray-700 mt-2">
+                      {pub.authors.map((author, index) => (
+                        <span key={index}>
+                          {index > 0 && ', '}
+                          {formatAuthor(author)}
+                        </span>
+                      ))}
+                    </p>
+                    
+                    <div className="text-gray-600 mt-1 text-sm">
+                      {pub.journal && <span className="italic">{pub.journal}, </span>}
+                      <span>{pub.year}</span>
+                      {pub.doi && (
+                        <span className="ml-1">
+                          · DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" className="text-[#A31F34] hover:text-opacity-80">{pub.doi}</a>
+                        </span>
+                      )}
+                    </div>
+
+                    {(pub.url || pub.doi) && (
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <a 
+                          href={pub.url || `https://doi.org/${pub.doi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-sm text-[#A31F34] hover:text-opacity-80"
+                        >
+                          Access Publication
+                        </a>
                       </div>
-                    )}
-                    {pub.doi && (
-                      <a 
-                        href={`https://doi.org/${pub.doi}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#A31F34] hover:underline cursor-pointer block"
-                      >
-                        DOI: {pub.doi}
-                      </a>
-                    )}
-                    {pub.url && !pub.url.includes(pub.doi) && (
-                      <a 
-                        href={pub.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#A31F34] hover:underline cursor-pointer block mt-1"
-                      >
-                        View Publication
-                      </a>
                     )}
                   </div>
                 ))}
