@@ -139,16 +139,38 @@ function Publications() {
                 {yearPublications.map((pub, index) => (
                   <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                     <h3 className="text-xl font-semibold text-[#A31F34] mb-2">{pub.title}</h3>
-                    <p className="text-[#8A8B8C]">{pub.authors.join(', ')}</p>
-                    <p className="text-[#8A8B8C]">{pub.journal}, {pub.year}</p>
+                    <p className="text-[#8A8B8C] mb-2">{pub.authors.join(', ')}</p>
+                    <p className="text-[#8A8B8C] mb-2">{pub.journal}, {pub.year}</p>
+                    {pub.tags && pub.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {pub.tags.map(tag => (
+                          <span
+                            key={tag}
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-[#8A8B8C]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     {pub.doi && (
                       <a 
                         href={`https://doi.org/${pub.doi}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#A31F34] hover:underline cursor-pointer"
+                        className="text-[#A31F34] hover:underline cursor-pointer block"
                       >
                         DOI: {pub.doi}
+                      </a>
+                    )}
+                    {pub.url && !pub.url.includes(pub.doi) && (
+                      <a 
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#A31F34] hover:underline cursor-pointer block mt-1"
+                      >
+                        View Publication
                       </a>
                     )}
                   </div>
