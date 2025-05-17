@@ -2,11 +2,21 @@ import fetch from 'node-fetch';
 import fs from 'fs/promises';
 import path from 'path';
 import querystring from 'querystring';
+import dotenv from 'dotenv';
 
-// Configuration for ORCID API
-const ORCID_ID = '0000-0003-2882-0900';
-const CLIENT_ID = 'APP-EUPGISZZCIOR8G50';
-const CLIENT_SECRET = 'dbd56f87-2adb-4ebe-b599-2ec679eae5c4';
+// Load environment variables from .env file
+dotenv.config();
+
+// Configuration from environment variables
+const ORCID_ID = process.env.ORCID_ID || '0000-0003-2882-0900';
+const CLIENT_ID = process.env.ORCID_CLIENT_ID;
+const CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET;
+
+// Validate required environment variables
+if (!CLIENT_ID || !CLIENT_SECRET) {
+  console.error('Error: ORCID_CLIENT_ID and ORCID_CLIENT_SECRET must be set in .env file');
+  process.exit(1);
+}
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -20,6 +30,14 @@ async function fetchWithRetry(url, options, maxRetries = 5, initialBackoff = 200
         ...options,
         timeout: 30000, // 30 second timeout
       });
+      
+      // Handle rate limiting explicitly
+      if (response.status === 429) {
+        const retryAfter = parseInt(response.headers.get('retry-after') || '60', 10);
+        console.log(`Rate limited. Waiting for ${retryAfter} seconds...`);
+        await delay(retryAfter * 1000);
+        continue;
+      }
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -89,9 +107,22 @@ async function fetchPublications() {
     );
 
     const data = await response.json();
-    const publications = await Promise.all(
-      data.group.map(async work => {
+    
+    if (!data.group || !Array.isArray(data.group)) {
+      throw new Error('Unexpected API response format');
+    }
+    
+    console.log(`Fetching details for ${data.group.length} publications...`);
+    
+    const publications = [];
+    
+    // Process works sequentially to avoid rate limits
+    for (const work of data.group) {
+      try {
         const workSummary = work['work-summary'][0];
+        
+        // Add a small delay between requests to be respectful of the API
+        await delay(300);
         
         // Get detailed work information
         const detailResponse = await fetchWithRetry(
@@ -118,7 +149,7 @@ async function fetchPublications() {
           return null;
         }).filter(Boolean);
 
-        return {
+        publications.push({
           title: workSummary.title['title'].value,
           authors: authors,
           journal: workSummary['journal-title']?.value || 'Preprint',
@@ -126,13 +157,34 @@ async function fetchPublications() {
           url: workSummary.url?.value || null,
           doi: workSummary['external-ids']?.['external-id']?.find(id => id['external-id-type'] === 'doi')?.['external-id-value'] || null,
           tags: []
-        };
-      })
-    );
+        });
+        
+        console.log(`Processed: ${workSummary.title['title'].value}`);
+      } catch (error) {
+        console.error(`Error processing work: ${error.message}`);
+        // Continue with next work instead of failing completely
+      }
+    }
 
-    await fs.mkdir(path.join(process.cwd(), 'src/data'), { recursive: true });
+    const outputDir = path.join(process.cwd(), 'src/data');
+    await fs.mkdir(outputDir, { recursive: true });
+    
+    const outputPath = path.join(outputDir, 'publications.json');
+    
+    // Backup existing file if it exists
+    try {
+      const stats = await fs.stat(outputPath);
+      if (stats.isFile()) {
+        const backupPath = path.join(outputDir, `publications.backup.${Date.now()}.json`);
+        await fs.copyFile(outputPath, backupPath);
+        console.log(`Backed up existing publications to ${backupPath}`);
+      }
+    } catch (error) {
+      // File likely doesn't exist, continue
+    }
+    
     await fs.writeFile(
-      path.join(process.cwd(), 'src/data/publications.json'),
+      outputPath,
       JSON.stringify(publications, null, 2)
     );
 
@@ -140,15 +192,15 @@ async function fetchPublications() {
   } catch (error) {
     console.error('Error fetching publications:', error.message);
     // Don't overwrite existing publications.json if fetch fails
-    const existingPublications = await fs.readFile(
-      path.join(process.cwd(), 'src/data/publications.json')
-    ).catch(() => '[]');
-    
-    if (existingPublications === '[]') {
-      await fs.writeFile(
-        path.join(process.cwd(), 'src/data/publications.json'),
-        '[]'
-      );
+    const outputPath = path.join(process.cwd(), 'src/data/publications.json');
+    try {
+      await fs.access(outputPath);
+      console.log('Fetch failed but existing publications.json was preserved.');
+    } catch {
+      // If no existing file, create an empty array
+      await fs.mkdir(path.join(process.cwd(), 'src/data'), { recursive: true });
+      await fs.writeFile(outputPath, '[]');
+      console.log('Created empty publications.json due to fetch failure.');
     }
   }
 }
