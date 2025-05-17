@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navbar() {
+  const location = useLocation();
   const navItems = [
     { name: 'Research', url: '/research' },
     { name: 'Publications', url: '/publications' },
@@ -16,7 +17,9 @@ function Navbar() {
           <div className="flex space-x-7">
             <div>
               <Link to="/" className="flex items-center py-4">
-                <span className="font-semibold text-[#8A8B8C] hover:text-[#A31F34] transition duration-300 text-lg">About</span>
+                <span className={`font-semibold text-lg ${location.pathname === '/' ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}>
+                  About
+                </span>
               </Link>
             </div>
           </div>
@@ -25,7 +28,7 @@ function Navbar() {
               <Link
                 key={index}
                 to={item.url}
-                className="py-4 px-2 text-[#8A8B8C] font-semibold hover:text-[#A31F34] transition duration-300"
+                className={`py-4 px-2 font-semibold ${location.pathname === item.url ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
               >
                 {item.name}
               </Link>
