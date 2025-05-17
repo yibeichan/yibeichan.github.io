@@ -103,24 +103,24 @@ function Publications() {
         </div>
 
         {allTags.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-sm font-medium text-black mb-2">Filter by topic:</h3>
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-3">Filter by topic:</h3>
             <div className="flex flex-wrap gap-2">
               {allTags.map(tag => (
                 <button
                   key={tag}
                   onClick={() => toggleFilter(tag)}
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                  className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-colors
                     ${activeFilters.has(tag) 
                       ? 'bg-[#A31F34] text-white' 
-                      : 'bg-gray-100 text-gray-800 hover:bg-[#A31F34] hover:text-white'}`}
+                      : 'bg-gray-100 text-[#A31F34] hover:bg-[#A31F34] hover:text-white'}`}
                 >
                   {tag}
                 </button>
               ))}
               <button
                 onClick={clearFilters}
-                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#A31F34] text-white hover:bg-opacity-90 transition-colors"
+                className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-800 text-white hover:bg-opacity-90 transition-colors"
               >
                 Clear filters
               </button>
@@ -147,7 +147,7 @@ function Publications() {
                       {pub.tags?.map(tag => (
                         <span
                           key={tag}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-[#A31F34]"
                         >
                           {tag}
                         </span>
