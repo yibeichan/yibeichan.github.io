@@ -11,13 +11,13 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-7">
             <div>
               <Link to="/" className="flex items-center py-4">
-                <span className={`font-semibold text-lg ${location.pathname === '/' ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}>
+                <span className={`font-serif text-lg ${location.pathname === '/' ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}>
                   About
                 </span>
               </Link>
@@ -28,7 +28,7 @@ function Navbar() {
               <Link
                 key={index}
                 to={item.url}
-                className={`py-4 px-2 font-semibold ${location.pathname === item.url ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
+                className={`py-4 px-2 font-serif ${location.pathname === item.url ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
               >
                 {item.name}
               </Link>

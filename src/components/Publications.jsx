@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import publicationsData from '../data/publications.json';
 
 function Publications() {
   const [publications, setPublications] = useState([]);
@@ -8,21 +10,23 @@ function Publications() {
   const [activeFilters, setActiveFilters] = useState(new Set());
 
   useEffect(() => {
-    fetch('/src/data/publications.json')
-      .then(response => response.json())
-      .then(data => {
-        setPublications(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError('Failed to load publications');
-        setLoading(false);
-      });
+    try {
+      const dataWithTags = publicationsData.map(pub => ({
+        ...pub,
+        tags: pub.tags || []
+      }));
+      
+      setPublications(dataWithTags);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error loading publications:", err);
+      setError(`Failed to load publications: ${err.message}`);
+      setLoading(false);
+    }
   }, []);
 
-  // Group publications by year
   const publicationsByYear = publications.reduce((acc, pub) => {
-    const year = pub.year;
+    const year = pub.year || 'Unknown';
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -30,19 +34,21 @@ function Publications() {
     return acc;
   }, {});
 
-  // Sort years in descending order
-  const sortedYears = Object.keys(publicationsByYear).sort((a, b) => parseInt(b) - parseInt(a));
+  const sortedYears = Object.keys(publicationsByYear).sort((a, b) => {
+    const yearA = isNaN(parseInt(a)) ? 0 : parseInt(a);
+    const yearB = isNaN(parseInt(b)) ? 0 : parseInt(b);
+    return yearB - yearA;
+  });
 
-  // Extract all unique tags
   const allTags = [...new Set(publications.flatMap(pub => pub.tags || []))].sort();
 
   const filterPublications = (pub) => {
     const matchesSearch = searchTerm === '' || 
-      pub.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pub.authors.some(author => author.toLowerCase().includes(searchTerm.toLowerCase()));
+      (pub.title && pub.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (pub.authors && pub.authors.some(author => author && author.toLowerCase().includes(searchTerm.toLowerCase())));
 
     const matchesTags = activeFilters.size === 0 || 
-      pub.tags?.some(tag => activeFilters.has(tag));
+      (pub.tags && pub.tags.some(tag => activeFilters.has(tag)));
 
     return matchesSearch && matchesTags;
   };
@@ -65,6 +71,7 @@ function Publications() {
   };
 
   const formatAuthor = (author) => {
+    if (!author) return null;
     const isYibei = author.includes('Yibei Chen') || author === 'Chen, Y.' || author === 'Chen, Yibei';
     return isYibei ? <u>{author}</u> : author;
   };
@@ -72,7 +79,7 @@ function Publications() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
+        <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">Loading publications...</div>
       </div>
     );
@@ -81,16 +88,22 @@ function Publications() {
   if (error) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
+        <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">{error}</div>
+        <div className="mt-4">
+          <button 
+            onClick={() => window.location.reload()} 
+            className="inline-flex items-center px-3 py-1.5 rounded text-sm font-medium bg-[#A31F34] text-white hover:bg-opacity-90 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-black mb-8">Publications</h2>
-      
+    <div className="max-w-6xl mx-auto px-4 py-8">      
       <div className="mb-8">
         <div className="relative">
           <input
@@ -104,7 +117,7 @@ function Publications() {
 
         {allTags.length > 0 && (
           <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-3">Filter by topic:</h3>
+            <h3 className="text-xl font-medium text-gray-900 mb-3 font-serif">Filter by topic:</h3>
             <div className="flex flex-wrap gap-2">
               {allTags.map(tag => (
                 <button
@@ -129,33 +142,35 @@ function Publications() {
         )}
       </div>
 
-      <div className="space-y-12">
-        {sortedYears.map(year => {
-          const yearPublications = publicationsByYear[year].filter(filterPublications);
-          
-          if (yearPublications.length === 0) return null;
+      {sortedYears.map(year => {
+        const yearPublications = publicationsByYear[year].filter(filterPublications);
+        
+        if (yearPublications.length === 0) return null;
 
-          return (
-            <div key={year}>
-              <h3 className="text-2xl font-semibold text-black mb-6 pb-2 border-b border-gray-200">
-                {year}
-              </h3>
-              <div className="space-y-6">
-                {yearPublications.map((pub, index) => (
-                  <div key={index} className="publication-item bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+        return (
+          <div key={year}>
+            <h3 className="text-2xl font-semibold text-black mb-6 pb-2 border-b border-gray-200 font-serif">
+              {year}
+            </h3>
+            <div className="space-y-6">
+              {yearPublications.map((pub, index) => (
+                <div key={index} className="publication-item bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  {pub.tags && pub.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-3">
-                      {pub.tags?.map(tag => (
+                      {pub.tags.map(tag => (
                         <span
                           key={tag}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-[#A31F34]"
+                          className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-[#A31F34] bg-opacity-30 text-[#A31F34]"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
+                  )}
 
-                    <h3 className="text-lg font-semibold text-gray-900 font-serif">{pub.title}</h3>
-                    
+                  <h3 className="text-lg font-semibold text-gray-900 font-serif">{pub.title}</h3>
+                  
+                  {pub.authors && pub.authors.length > 0 && (
                     <p className="text-gray-700 mt-2">
                       {pub.authors.map((author, index) => (
                         <span key={index}>
@@ -164,35 +179,40 @@ function Publications() {
                         </span>
                       ))}
                     </p>
-                    
-                    <div className="text-gray-600 mt-1 text-sm">
-                      {pub.journal && <span className="italic">{pub.journal}, </span>}
-                      <span>{pub.year}</span>
-                      {pub.doi && (
-                        <span className="ml-1">
-                          · DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" className="text-[#A31F34] hover:text-opacity-80">{pub.doi}</a>
-                        </span>
-                      )}
-                    </div>
-
-                    {(pub.url || pub.doi) && (
-                      <div className="mt-4 flex flex-wrap gap-3">
-                        <a 
-                          href={pub.url || `https://doi.org/${pub.doi}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center text-sm text-[#A31F34] hover:text-opacity-80"
-                        >
-                          Access Publication
-                        </a>
-                      </div>
+                  )}
+                  
+                  <div className="text-gray-600 mt-2 text-base">
+                    {pub.journal && <span className="italic">{pub.journal}, </span>}
+                    <span>{pub.year}</span>
+                    {pub.doi && (
+                      <span className="ml-1">
+                        · DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" className="text-[#A31F34] hover:text-opacity-80">{pub.doi}</a>
+                      </span>
                     )}
                   </div>
-                ))}
-              </div>
+
+                  {(pub.url || pub.doi) && (
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <a 
+                        href={pub.url || `https://doi.org/${pub.doi}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-base text-[#A31F34] hover:text-opacity-80"
+                      >
+                        <ArrowTopRightOnSquareIcon className="w-5 h-5 mr-1" />
+                        Access Publication
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        );
+      })}
+      
+      <div className="mt-12 text-xs text-gray-400">
+        Loaded {publications.length} publications
       </div>
     </div>
   );

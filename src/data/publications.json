@@ -13,7 +13,11 @@
     "url": "https://doi.org/10.1101/2025.04.05.647323",
     "doi": "10.1101/2025.04.05.647323",
     "tags": [
-      "Neuroscience"
+      "Neuroscience",
+      "Brain States",
+      "Narrative Processing",
+      "Cognitive Science",
+      "fMRI"
     ]
   },
   {
@@ -45,10 +49,12 @@
     "url": "https://doi.org/10.1162/imag_a_00074",
     "doi": "10.1162/imag_a_00074",
     "tags": [
-      "Neuroimaging",
       "Neuroscience",
       "Reproducibility",
-      "Software Development"
+      "Software Development",
+      "BIDS",
+      "Data Analysis",
+      "Open Science"
     ]
   },
   {
@@ -67,14 +73,18 @@
     "doi": "10.1016/j.biopsych.2024.02.056",
     "tags": [
       "Neuroimaging",
-      "Reproducibility"
+      "Reproducibility",
+      "BIDS",
+      "Data Analysis",
+      "Software Tools", 
+      "Brain Imaging"
     ]
   },
   {
     "title": "Measures of Argument Strength: A Computational, Large-Scale Analysis of Effective Persuasion in Real-World Debates",
     "authors": [
       "Youk, S.",
-      "Malik, M.",
+      "Malik, M.", 
       "Chen, Y.",
       "Hopp, F.R.",
       "Weber, R."
@@ -84,7 +94,11 @@
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85164662767&partnerID=MN8TOARS",
     "doi": "10.1080/19312458.2023.2230866",
     "tags": [
-      "Computational Methods"
+      "Computational Methods",
+      "Natural Language Processing",
+      "Persuasion",
+      "Communication",
+      "Data Mining"
     ]
   },
   {
@@ -115,7 +129,12 @@
     "url": "https://doi.org/10.2196/preprints.63343",
     "doi": "10.2196/preprints.63343",
     "tags": [
-      "Reproducibility"
+      "Reproducibility",
+      "Data Collection",
+      "Research Methods",
+      "Standardization",
+      "Survey Design",
+      "Open Science"
     ]
   },
   {
@@ -146,7 +165,12 @@
     "url": "https://doi.org/10.2196/63343",
     "doi": "10.2196/63343",
     "tags": [
-      "Reproducibility"
+      "Reproducibility",
+      "Data Collection",
+      "Research Methods",
+      "Survey Design",
+      "Methodology",
+      "Open Science"
     ]
   },
   {
@@ -162,7 +186,11 @@
     "doi": "10.1093/jcmc/zmad047",
     "tags": [
       "Computational Methods",
-      "Media Studies"
+      "Media Studies",
+      "Artificial Intelligence",
+      "Gender Studies",
+      "Digital Media",
+      "Content Analysis"
     ]
   },
   {
@@ -179,7 +207,11 @@
     "doi": "10.1080/1369118X.2023.2246551",
     "tags": [
       "Media Studies",
-      "Social Science"
+      "Social Science",
+      "Social Media",
+      "Discourse Analysis",
+      "Digital Communication",
+      "Sentiment Analysis"
     ]
   },
   {
@@ -198,7 +230,10 @@
     "tags": [
       "Cognitive Science",
       "Neuroscience",
-      "Social Science"
+      "Social Science",
+      "Decision Making",
+      "Game Theory",
+      "Behavioral Science"
     ]
   },
   {
@@ -232,7 +267,11 @@
     "tags": [
       "Neuroimaging",
       "Reproducibility",
-      "Software Development"
+      "Software Development",
+      "BIDS",
+      "Data Analysis",
+      "Brain Imaging",
+      "Open Science"
     ]
   },
   {
@@ -249,7 +288,11 @@
     "doi": "10.1016/j.chb.2023.107829",
     "tags": [
       "Computational Methods",
-      "Media Studies"
+      "Media Studies",
+      "Network Analysis",
+      "Attention",
+      "Human Behavior",
+      "Digital Media"
     ]
   },
   {
@@ -269,7 +312,11 @@
     "doi": "10.3389/fnimg.2022.953215",
     "tags": [
       "Neuroimaging",
-      "Neuroscience"
+      "Neuroscience",
+      "fMRI",
+      "Data Analysis",
+      "Research Methods",
+      "Software Tools"
     ]
   },
   {
@@ -285,11 +332,16 @@
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85117107639&partnerID=MN8TOARS",
     "doi": "10.1177/0261927X211044194",
     "tags": [
-      "Media Studies"
+      "Media Studies",
+      "COVID-19",
+      "Language Analysis",
+      "Social Psychology",
+      "Public Health",
+      "Content Analysis"
     ]
   },
   {
-    "title": "Obesity as a “self-regulated epidemic”: coverage of obesity in Chinese newspapers",
+    "title": "Obesity as a self-regulated epidemic: coverage of obesity in Chinese newspapers",
     "authors": [
       "Sun, S.",
       "He, J.",
@@ -303,7 +355,12 @@
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85082644883&partnerID=MN8TOARS",
     "doi": "10.1007/s40519-020-00886-8",
     "tags": [
-      "Media Studies"
+      "Media Studies",
+      "Public Health",
+      "Health Communication",
+      "Content Analysis",
+      "Chinese Media",
+      "Obesity Research"
     ]
   },
   {
@@ -320,7 +377,12 @@
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85070873655&partnerID=MN8TOARS",
     "doi": "10.1002/eat.23154",
     "tags": [
-      "Media Studies"
+      "Media Studies",
+      "Mental Health",
+      "Health Communication",
+      "Content Analysis",
+      "Chinese Media",
+      "Eating Disorders"
     ]
   },
   {
@@ -336,7 +398,12 @@
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85085288433&partnerID=MN8TOARS",
     "doi": "10.1016/j.tele.2020.101433",
     "tags": [
-      "Media Studies"
+      "Media Studies",
+      "Artificial Intelligence",
+      "Technology Coverage",
+      "Content Analysis",
+      "Digital Media",
+      "Emerging Tech"
     ]
   },
   {
@@ -352,6 +419,13 @@
     "year": "2020",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85090905921&partnerID=MN8TOARS",
     "doi": "10.3390/ijerph17186711",
-    "tags": []
+    "tags": [
+      "Public Health",
+      "E-commerce",
+      "Marketing Analysis",
+      "Digital Marketing",
+      "Health Communication",
+      "Consumer Behavior"
+    ]
   }
 ]
