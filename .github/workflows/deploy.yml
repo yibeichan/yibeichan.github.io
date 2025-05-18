@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow on pushes to the main branch
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push to gh-pages branch or for actions/deploy-pages
+      pages: write    # Needed for actions/deploy-pages
+      id-token: write # Needed for OIDC with actions/deploy-pages
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a current LTS version
+
+      - name: Install dependencies
+        run: npm ci # Use ci for faster, more reliable installs in CI
+
+      - name: Build project
+        run: npm run build # Assumes your build script is 'build' and output is 'dist'
+        # If your build requires environment variables, set them here using the env key
+        # For example, if you need a base path for a project site (not a user/org site):
+        # env:
+        #   VITE_BASE_URL: /${{ github.event.repository.name }}/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Path to the directory to upload
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 
