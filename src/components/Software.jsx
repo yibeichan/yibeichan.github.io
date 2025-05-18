@@ -26,27 +26,23 @@ function Section({ children, background = 'white' }) {
   
   return (
     <section className={`py-12 md:py-16 lg:py-24 ${bgClass}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {children}
-      </div>
+      {children}
     </section>
   );
 }
 
 function Software() {
   return (
-    <div>
+    <div className="max-w-6xl mx-auto px-4 py-12">
       {/* Hero Section */}
-      <div className="bg-gray-800 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
-              Open Source Projects
-            </h1>
-            <p className="mt-4 text-xl text-gray-300">
-              Building tools and frameworks that advance scientific research through reproducible methods and standardized approaches.
-            </p>
-          </div>
+      <div className="bg-gray-800 text-white py-24 -mx-4 px-4">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
+            Open Source Projects
+          </h1>
+          <p className="mt-4 text-xl text-gray-300">
+            Building tools and frameworks that advance scientific research through reproducible methods and standardized approaches.
+          </p>
         </div>
       </div>
 
