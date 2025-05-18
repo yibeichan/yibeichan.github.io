@@ -4,7 +4,7 @@ import { socialLinks } from '../data/socialLinks';
 function Home() {
   return (
     <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center px-4">
-      <div className="max-w-6xl mx-auto w-full py-8">
+      <div className="max-w-6xl mx-auto w-full py-4">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column */}
           <div className="md:w-1/3 space-y-6">
