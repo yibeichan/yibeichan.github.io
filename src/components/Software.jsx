@@ -1,4 +1,5 @@
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 const softwareProjects = [
   {
@@ -21,11 +22,15 @@ const softwareProjects = [
   }
 ];
 
-function Section({ children, background = 'white', isFirst = false }) {
+function Section({ children, background = 'white', isFirst = false, customPadding = null }) {
   const bgClass = background === 'gray' ? 'bg-gray-50' : 'bg-white';
-  const paddingClasses = isFirst 
-    ? 'pb-12 md:pb-16 lg:pb-24'
-    : 'py-12 md:py-16 lg:py-24';
+  let paddingClasses = customPadding;
+
+  if (!paddingClasses) {
+    paddingClasses = isFirst 
+      ? 'pb-12 md:pb-16 lg:pb-24' 
+      : 'py-12 md:py-16 lg:py-24';
+  }
   
   return (
     <section className={`${paddingClasses} ${bgClass}`}>
@@ -37,7 +42,7 @@ function Section({ children, background = 'white', isFirst = false }) {
 function Software() {
   return (
     <div>
-      <div className="bg-gray-800 text-white py-24">
+      <div className="bg-gray-800 text-white py-16">
         <div className="max-w-6xl mx-auto px-4">
           <div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
@@ -113,18 +118,18 @@ function Software() {
           </div>
         </Section>
 
-        <Section background="gray">
+        <Section background="gray" customPadding="py-8 md:py-10 lg:py-12">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-gray-900 font-serif mb-4">Want to Contribute?</h2>
             <p className="text-lg text-gray-700 mb-8">
               All projects are open source and welcome contributions. Check out the repositories or get in touch to learn more.
             </p>
-            <a 
-              href="/contact" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#A31F34] hover:bg-opacity-90 transition-colors"
             >
               Get in touch
-            </a>
+            </Link>
           </div>
         </Section>
       </div>

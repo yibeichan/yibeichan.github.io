@@ -5,7 +5,7 @@ function Research() {
   return (
     <div>
       {/* Hero Section - background will be full width */}
-      <div className="bg-gray-900 text-white py-24">
+      <div className="bg-gray-900 text-white py-16">
         {/* This inner div constrains the text content to align with navbar */}
         <div className="max-w-6xl mx-auto px-4">
           <div> {/* This div previously held max-w-3xl, then was plain. It now inherits parent's constraint for text. */}
