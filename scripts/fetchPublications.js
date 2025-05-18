@@ -7,14 +7,14 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
-// Configuration from environment variables
+// Configuration from environment variables or GitHub secrets
 const ORCID_ID = process.env.ORCID_ID || '0000-0003-2882-0900';
-const CLIENT_ID = process.env.ORCID_CLIENT_ID;
-const CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET;
+const CLIENT_ID = process.env.ORCID_CLIENT_ID || process.env.GITHUB_ORCID_CLIENT_ID;
+const CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET || process.env.GITHUB_ORCID_CLIENT_SECRET;
 
-// Validate required environment variables
+// Validate required environment variables or GitHub secrets
 if (!CLIENT_ID || !CLIENT_SECRET) {
-  console.error('Error: ORCID_CLIENT_ID and ORCID_CLIENT_SECRET must be set in .env file');
+  console.error('Error: ORCID_CLIENT_ID and ORCID_CLIENT_SECRET must be set in .env file or as GitHub secrets');
   process.exit(1);
 }
 
