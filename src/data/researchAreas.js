@@ -36,7 +36,7 @@ export const researchAreas = [
         tags: ["Reproducibility", "Methods", "Surveys"]
       },
       {
-        title: "BIDS Apps Implementation",
+        title: "BIDS App Bootstrap (BABS)",
         description: "Contributing to the development of BIDS Apps, a containerized ecosystem for neuroimaging analysis. This project combines the Brain Imaging Data Structure (BIDS) with reproducible computing principles to enable automated processing of large-scale datasets. The system streamlines complex neuroimaging workflows while ensuring computational reproducibility across institutions.",
         image: "https://raw.githubusercontent.com/PennLINC/babs/main/docs/_static/babs_cli.png",
         paper: "https://doi.org/10.1162/imag_a_00074",

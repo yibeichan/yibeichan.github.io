@@ -21,11 +21,14 @@ const softwareProjects = [
   }
 ];
 
-function Section({ children, background = 'white' }) {
+function Section({ children, background = 'white', isFirst = false }) {
   const bgClass = background === 'gray' ? 'bg-gray-50' : 'bg-white';
+  const paddingClasses = isFirst 
+    ? 'pb-12 md:pb-16 lg:pb-24'
+    : 'py-12 md:py-16 lg:py-24';
   
   return (
-    <section className={`py-12 md:py-16 lg:py-24 ${bgClass}`}>
+    <section className={`${paddingClasses} ${bgClass}`}>
       {children}
     </section>
   );
@@ -48,7 +51,7 @@ function Software() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <Section>
+        <Section isFirst={true}>
           <div className="space-y-16">
             {softwareProjects.map((project, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
