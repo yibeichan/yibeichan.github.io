@@ -4,10 +4,11 @@ import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 function Research() {
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section - background will be full width */}
       <div className="bg-gray-900 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div>
+        {/* This inner div constrains the text content to align with navbar */}
+        <div className="max-w-6xl mx-auto px-4">
+          <div> {/* This div previously held max-w-3xl, then was plain. It now inherits parent's constraint for text. */}
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
               Research Highlights
             </h1>
@@ -18,7 +19,7 @@ function Research() {
         </div>
       </div>
 
-      {/* Research Areas */}
+      {/* Research Areas - wrapped to align its content */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="space-y-12">
           {researchAreas.map((area) => (
