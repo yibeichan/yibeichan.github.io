@@ -7,7 +7,7 @@ function CV() {
   const EMBED_URL = `https://docs.google.com/document/d/${DOC_ID}/preview`;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 font-serif mb-4">Curriculum Vitae</h1>
       </div>

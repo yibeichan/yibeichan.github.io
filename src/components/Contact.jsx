@@ -2,9 +2,9 @@ import { socialLinks } from '../data/socialLinks';
 
 function Contact() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="grid md:grid-cols-2 gap-12">
-        {/* Contact Form */}
+        {/* Contact Form - Left Column */}
         <div>
           <h2 className="text-2xl font-bold text-gray-900 font-serif mb-6">Send a Message</h2>
           <form 
@@ -13,7 +13,7 @@ function Contact() {
             className="space-y-6"
           >
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <label htmlFor="name" className="block text-base font-medium text-gray-700 mb-1">Name</label>
               <input
                 type="text"
                 id="name"
@@ -24,7 +24,7 @@ function Contact() {
             </div>
             
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label htmlFor="email" className="block text-base font-medium text-gray-700 mb-1">Email</label>
               <input
                 type="email"
                 id="email"
@@ -35,7 +35,7 @@ function Contact() {
             </div>
             
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <label htmlFor="subject" className="block text-base font-medium text-gray-700 mb-1">Subject</label>
               <input
                 type="text"
                 id="subject"
@@ -46,13 +46,13 @@ function Contact() {
             </div>
             
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <label htmlFor="message" className="block text-base font-medium text-gray-700 mb-1">Message</label>
               <textarea
                 id="message"
                 name="message"
                 rows="6"
                 required
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34]"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34] shadow-inner shadow-gray-300"
               ></textarea>
             </div>
 
@@ -76,10 +76,10 @@ function Contact() {
           </form>
         </div>
 
-        {/* Social Media Links */}
-        <div>
+        {/* Social Media Links - Right Column */}
+        <div className="flex flex-col">
           <h2 className="text-2xl font-bold text-gray-900 font-serif mb-6">Connect on Social Media</h2>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 flex-grow justify-around">
             {socialLinks.map(link => (
               <a 
                 key={link.name}
