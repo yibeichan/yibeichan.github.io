@@ -6,10 +6,9 @@ function Home() {
     <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center px-4">
       <div className="max-w-6xl mx-auto w-full py-2">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Left Column: Adjusted width and made flex for bottom alignment */}
-          <div className="md:w-1/4 flex flex-col space-y-6">
-            {/* Wrapper for image and text block to allow social icons to be pushed down */}
-            <div>
+          {/* Left Column */}
+          <div className="md:w-1/5 flex flex-col">
+            <div className="space-y-6">
               <div className="relative w-full aspect-square rounded-lg shadow-lg overflow-hidden">
                 <img
                   src="/images/headshot.jpg"
@@ -17,8 +16,7 @@ function Home() {
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              <div className="text-center space-y-2 mt-6"> {/* Added mt-6 to maintain spacing similar to original space-y-6 on parent*/}
+              <div className="text-center space-y-2">
                 <h1 className="text-2xl font-bold text-gray-800">Yibei Chen, Ph.D.</h1>
                 <div className="space-y-1">
                   <p className="text-lg">Postdoctoral Associate</p>
@@ -56,8 +54,8 @@ function Home() {
               </div>
             </div>
 
-            {/* Social Icons: Added mt-auto to push to bottom */}
-            <div className="flex justify-center space-x-4 mt-auto pt-6"> {/* Added pt-6 to ensure some space above if content is short */}
+            {/* Social Icons: mt-auto pushes to bottom, py-2 for padding */}
+            <div className="flex justify-center space-x-4 mt-auto py-2">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
@@ -78,9 +76,9 @@ function Home() {
             </div>
           </div>
 
-          {/* Right Column: Adjusted width and text size */}
-          <div className="md:w-3/4">
-            <div className="text-gray-700 leading-relaxed space-y-4 mb-8 text-lg"> {/* Added text-lg */}
+          {/* Right Column */}
+          <div className="md:w-4/5 flex flex-col">
+            <div className="text-gray-700 leading-relaxed space-y-4 mb-8 text-lg flex-grow">
               <p>
                 At MIT, I study how the brain processes natural communication: how we perceive, interpret, and respond to the world around us. I use neuroimaging and computational methods to study brain dynamics during naturalistic experiences, especially when people watch videos or play games in an fMRI scanner. My work brings together social and cognitive neuroscience, communication science, and data-driven research. I also design open-source tools that support transparent, reproducible science, because I believe good research should be accessible, collaborative, and built for long-term impact.
               </p>
@@ -95,8 +93,8 @@ function Home() {
               </p>
             </div>
 
-            {/* Navigation Links */}
-            <div className="flex flex-wrap gap-4 justify-end">
+            {/* Navigation Links: Added pt-4 for spacing from text above */}
+            <div className="flex flex-wrap gap-4 justify-end pt-4">
               <Link 
                 to="/research" 
                 className="px-6 py-2 bg-[#A31F34] text-white rounded-lg hover:bg-opacity-90 transition-colors"
