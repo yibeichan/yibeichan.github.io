@@ -4,7 +4,7 @@ import { socialLinks } from '../data/socialLinks';
 function Home() {
   return (
     <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center px-4">
-      <div className="max-w-6xl mx-auto w-full py-2">
+      <div className="max-w-6xl mx-auto w-full pt-2">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column */}
           <div className="md:w-1/5 flex flex-col">
@@ -78,7 +78,7 @@ function Home() {
 
           {/* Right Column */}
           <div className="md:w-4/5 flex flex-col">
-            <div className="text-gray-700 leading-relaxed space-y-4 mb-4 flex-grow">
+            <div className="text-gray-700 leading-relaxed space-y-4 mb-2 flex-grow">
               <p>
                 At MIT, I study how the brain processes natural communication: how we perceive, interpret, and respond to the world around us. I use neuroimaging and computational methods to study brain dynamics during naturalistic experiences, especially when people watch videos or play games in an fMRI scanner. My work brings together social and cognitive neuroscience, communication science, and data-driven research. I also design open-source tools that support transparent, reproducible science, because I believe good research should be accessible, collaborative, and built for long-term impact.
               </p>
