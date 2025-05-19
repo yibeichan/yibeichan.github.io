@@ -3,58 +3,61 @@ import { socialLinks } from '../data/socialLinks';
 
 function Home() {
   return (
-    <div className="min-h-[calc(100vh-theme(spacing.32))] py-8">
-      <div className="max-w-6xl mx-auto px-4">
+    <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center px-4">
+      <div className="max-w-6xl mx-auto w-full py-2">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Left Column */}
-          <div className="md:w-1/3 space-y-6">
-            <div className="relative w-full aspect-square rounded-lg shadow-lg overflow-hidden">
-              <img
-                src="/images/headshot.jpg"
-                alt="Yibei Chen"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {/* Left Column: Adjusted width and made flex for bottom alignment */}
+          <div className="md:w-1/4 flex flex-col space-y-6">
+            {/* Wrapper for image and text block to allow social icons to be pushed down */}
+            <div>
+              <div className="relative w-full aspect-square rounded-lg shadow-lg overflow-hidden">
+                <img
+                  src="/images/headshot.jpg"
+                  alt="Yibei Chen"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            <div className="text-center space-y-2">
-              <h1 className="text-2xl font-bold text-gray-800">Yibei Chen, Ph.D.</h1>
-              <div className="space-y-1">
-                <p className="text-lg">Postdoctoral Associate</p>
-                <p className="text-lg">
-                  <a 
-                    href="https://sensein.group/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-[#A31F34] hover:underline"
-                  >
-                    Senseable Intelligence Group
-                  </a>
-                </p>
-                <p className="text-base">
-                  <a 
-                    href="https://mcgovern.mit.edu/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-[#00629b] hover:underline"
-                  >
-                    McGovern Institute for Brain Research
-                  </a>
-                </p>
-                <p className="text-base">
-                  <a 
-                    href="https://www.mit.edu/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-gray-600"
-                  >
-                    MIT
-                  </a>
-                </p>
+              <div className="text-center space-y-2 mt-6"> {/* Added mt-6 to maintain spacing similar to original space-y-6 on parent*/}
+                <h1 className="text-2xl font-bold text-gray-800">Yibei Chen, Ph.D.</h1>
+                <div className="space-y-1">
+                  <p className="text-lg">Postdoctoral Associate</p>
+                  <p className="text-lg">
+                    <a 
+                      href="https://sensein.group/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-[#A31F34] hover:underline"
+                    >
+                      Senseable Intelligence Group
+                    </a>
+                  </p>
+                  <p className="text-base">
+                    <a 
+                      href="https://mcgovern.mit.edu/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-[#00629b] hover:underline"
+                    >
+                      McGovern Institute for Brain Research
+                    </a>
+                  </p>
+                  <p className="text-base">
+                    <a 
+                      href="https://www.mit.edu/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-gray-600"
+                    >
+                      MIT
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Social Icons */}
-            <div className="flex justify-center space-x-4">
+            {/* Social Icons: Added mt-auto to push to bottom */}
+            <div className="flex justify-center space-x-4 mt-auto pt-6"> {/* Added pt-6 to ensure some space above if content is short */}
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
@@ -75,9 +78,9 @@ function Home() {
             </div>
           </div>
 
-          {/* Right Column */}
-          <div className="md:w-2/3">
-            <div className="text-gray-700 leading-relaxed space-y-4 mb-8">
+          {/* Right Column: Adjusted width and text size */}
+          <div className="md:w-3/4">
+            <div className="text-gray-700 leading-relaxed space-y-4 mb-8 text-lg"> {/* Added text-lg */}
               <p>
                 At MIT, I study how the brain processes natural communication: how we perceive, interpret, and respond to the world around us. I use neuroimaging and computational methods to study brain dynamics during naturalistic experiences, especially when people watch videos or play games in an fMRI scanner. My work brings together social and cognitive neuroscience, communication science, and data-driven research. I also design open-source tools that support transparent, reproducible science, because I believe good research should be accessible, collaborative, and built for long-term impact.
               </p>
