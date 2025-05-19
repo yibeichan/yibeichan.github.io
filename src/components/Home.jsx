@@ -78,7 +78,7 @@ function Home() {
 
           {/* Right Column */}
           <div className="md:w-4/5 flex flex-col">
-            <div className="text-gray-700 leading-relaxed space-y-4 mb-8 text-lg flex-grow">
+            <div className="text-gray-700 leading-relaxed space-y-4 mb-4 flex-grow">
               <p>
                 At MIT, I study how the brain processes natural communication: how we perceive, interpret, and respond to the world around us. I use neuroimaging and computational methods to study brain dynamics during naturalistic experiences, especially when people watch videos or play games in an fMRI scanner. My work brings together social and cognitive neuroscience, communication science, and data-driven research. I also design open-source tools that support transparent, reproducible science, because I believe good research should be accessible, collaborative, and built for long-term impact.
               </p>
@@ -93,8 +93,8 @@ function Home() {
               </p>
             </div>
 
-            {/* Navigation Links: Added pt-4 for spacing from text above */}
-            <div className="flex flex-wrap gap-4 justify-end pt-4">
+            {/* Navigation Links: Removed pt-4 */}
+            <div className="flex flex-wrap gap-4 justify-end">
               <Link 
                 to="/research" 
                 className="px-6 py-2 bg-[#A31F34] text-white rounded-lg hover:bg-opacity-90 transition-colors"
