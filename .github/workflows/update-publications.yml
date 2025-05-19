@@ -1,0 +1,47 @@
+name: Update Publications from ORCID
+
+on:
+  workflow_dispatch: # Allows manual triggering
+  # schedule:
+  #   - cron: '0 0 * * 0' # Optional: Runs every Sunday at midnight UTC
+
+jobs:
+  update_publications:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # To commit changes back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a current LTS version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch ORCID Publications
+        run: node scripts/fetchPublications.js
+        env:
+          ORCID_ID: '0000-0003-2882-0900'
+          ORCID_CLIENT_ID: ${{ secrets.ORCID_CLIENT_ID }}
+          ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
+          # The script also uses GITHUB_ORCID_CLIENT_ID as a fallback, so let's ensure it maps
+          GITHUB_ORCID_CLIENT_ID: ${{ secrets.ORCID_CLIENT_ID }}
+          GITHUB_ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: Update publications from ORCID"
+          file_pattern: src/data/publications.json
+          # Optional: Specify a different branch if you don't want to commit directly to main
+          # branch: main 
+          # Optional: Add a committer name and email
+          # commit_user_name: ORCID Update Bot
+          # commit_user_email: bot@example.com
+          # Optional: Add a tag to the commit
+          # tag_options: --no-sign 
