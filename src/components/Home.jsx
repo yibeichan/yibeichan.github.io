@@ -3,8 +3,8 @@ import { socialLinks } from '../data/socialLinks';
 
 function Home() {
   return (
-    <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center p-4 sm:px-4">
-      <div className="max-w-6xl mx-auto w-full">
+    <div className="h-[100vh] flex flex-col justify-between p-4 sm:px-4 home-page">
+      <div className="max-w-6xl mx-auto w-full flex-grow">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           {/* Left Column */}
           <div className="w-full md:w-1/4 lg:w-1/5 flex flex-col items-center md:items-stretch">

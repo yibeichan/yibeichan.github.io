@@ -51,3 +51,9 @@ a, button {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Enforce no-scroll policy for the home page on web */
+.home-page {
+  height: 100vh;
+  overflow: hidden;
+}
