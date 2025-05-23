@@ -57,3 +57,9 @@ a, button {
   height: 100vh;
   overflow: hidden;
 }
+
+/* Global styles to reduce margin and padding */
+* {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
