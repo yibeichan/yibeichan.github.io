@@ -5,9 +5,9 @@ function Research() {
   return (
     <div>
       {/* Hero Section - background will be full width */}
-      <div className="bg-gray-900 text-white py-24">
+      <div className="bg-gray-900 text-white py-12">
         {/* This inner div constrains the text content to align with navbar */}
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-2">
           <div> {/* This div previously held max-w-3xl, then was plain. It now inherits parent's constraint for text. */}
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
               Research Highlights
@@ -20,11 +20,11 @@ function Research() {
       </div>
 
       {/* Research Areas - wrapped to align its content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-2 py-4">
         <div className="space-y-12">
           {researchAreas.map((area) => (
             <div key={area.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="p-6">
+              <div className="p-4">
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4 font-serif">{area.title}</h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">{area.description}</p>
                 
@@ -36,7 +36,7 @@ function Research() {
                         alt={project.title}
                         className="w-full h-64 object-cover"
                       />
-                      <div className="p-6">
+                      <div className="p-4">
                         {project.tags && (
                           <div className="flex flex-wrap gap-2 mb-4">
                             {project.tags.map((tag, tagIndex) => (

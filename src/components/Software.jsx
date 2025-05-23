@@ -18,8 +18,8 @@ function Section({ children, background = 'white', isFirst = false, customPaddin
 function Software() {
   return (
     <div>
-      <div className="bg-gray-800 text-white py-24">
-        <div className="max-w-6xl mx-auto px-4">
+      <div className="bg-gray-800 text-white py-12">
+        <div className="max-w-6xl mx-auto px-2">
           <div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl font-serif mb-6">
               Open Source Projects
@@ -31,7 +31,7 @@ function Software() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-2 py-4">
         <Section isFirst={true}>
           <div className="space-y-16">
             {softwareProjects.map((project, index) => (

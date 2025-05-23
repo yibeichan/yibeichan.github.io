@@ -58,3 +58,9 @@ a, button {
   overflow: hidden;
   padding: 16px; /* Ensure equal padding on all sides */
 }
+
+/* Global styles to reduce margin and padding */
+* {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
