@@ -56,4 +56,5 @@ a, button {
 .home-page {
   height: 100vh;
   overflow: hidden;
+  padding: 16px; /* Ensure equal padding on all sides */
 }

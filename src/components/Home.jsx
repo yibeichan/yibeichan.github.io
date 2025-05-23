@@ -4,7 +4,7 @@ import { socialLinks } from '../data/socialLinks';
 function Home() {
   return (
     <div className="h-[100vh] flex flex-col justify-between p-4 sm:px-4 home-page">
-      <div className="max-w-6xl mx-auto w-full flex-grow">
+      <div className="max-w-6xl mx-auto w-full flex-grow p-4">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           {/* Left Column */}
           <div className="w-full md:w-1/4 lg:w-1/5 flex flex-col items-center md:items-stretch">
