@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import querystring from 'querystring';
 import dotenv from 'dotenv';
+import { generateTagsForPublication } from './generateTags.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -174,17 +175,22 @@ async function fetchPublications() {
           return null;
         }).filter(Boolean);
 
-        publications.push({
+        const publication = {
           title: workSummary.title['title'].value,
           authors: authors,
           journal: workSummary['journal-title']?.value || 'Preprint',
           year: workSummary['publication-date']?.year?.value?.toString() || 'N/A',
           url: workSummary.url?.value || null,
           doi: workSummary['external-ids']?.['external-id']?.find(id => id['external-id-type'] === 'doi')?.['external-id-value'] || null,
-          tags: []
-        });
+          tags: [] // Will be populated by generateTagsForPublication
+        };
+
+        // Generate tags automatically
+        publication.tags = generateTagsForPublication(publication);
         
-        console.log(`Processed: ${workSummary.title['title'].value}`);
+        publications.push(publication);
+        
+        console.log(`Processed: ${workSummary.title['title'].value} (${publication.tags.length} tags)`);
       } catch (error) {
         console.error(`Error processing work: ${error.message}`);
         // Continue with next work instead of failing completely
@@ -213,7 +219,14 @@ async function fetchPublications() {
       JSON.stringify(publications, null, 2)
     );
 
+    // Generate tag statistics
+    const allTags = new Set();
+    publications.forEach(pub => {
+      pub.tags.forEach(tag => allTags.add(tag));
+    });
+
     console.log(`Successfully saved ${publications.length} publications!`);
+    console.log(`Generated ${allTags.size} unique tags:`, Array.from(allTags).sort());
   } catch (error) {
     console.error('Error fetching publications:', error.message);
     // Don't overwrite existing publications.json if fetch fails
@@ -230,5 +243,5 @@ async function fetchPublications() {
   }
 }
 
-console.log('Starting ORCID publications fetch...');
+console.log('Starting ORCID publications fetch with automatic tag generation...');
 fetchPublications();
