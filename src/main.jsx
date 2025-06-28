@@ -11,6 +11,20 @@ import Software from './components/Software'
 import Contact from './components/Contact'
 import CV from './components/CV'
 
+// Single Page Apps for GitHub Pages
+// https://github.com/rafgraph/spa-github-pages
+// Check if we're being redirected from a 404 page
+(function(l) {
+  if (l.search[1] === '/' ) {
+    var decoded = l.search.slice(1).split('&').map(function(s) { 
+      return s.replace(/~and~/g, '&')
+    }).join('?');
+    window.history.replaceState(null, null,
+        l.pathname.slice(0, -1) + decoded + l.hash
+    );
+  }
+}(window.location))
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
