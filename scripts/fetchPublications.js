@@ -116,10 +116,13 @@ async function getOrcidAccessToken() {
 }
 
 async function fetchPublications() {
+  let db = null;
+  
   try {
     // Initialize database
+    console.log('Initializing SQLite database...');
     initializeDatabase();
-    const db = new PublicationDB();
+    db = new PublicationDB();
     
     const accessToken = await getOrcidAccessToken();
     if (!accessToken) {
@@ -194,17 +197,17 @@ async function fetchPublications() {
         publication.tags = generateTagsForPublication(publication);
         
         // Save to database
-        db.upsertPublication(publication);
+        const publicationId = db.upsertPublication(publication);
         publications.push(publication);
         
-        console.log(`✓ Processed: ${workSummary.title['title'].value} (${publication.tags.length} tags)`);
+        console.log(`✓ Processed: ${workSummary.title['title'].value} (${publication.tags.length} tags) [ID: ${publicationId}]`);
       } catch (error) {
         console.error(`Error processing work: ${error.message}`);
         // Continue with next work instead of failing completely
       }
     }
 
-    // Also maintain JSON file for backward compatibility
+    // Also maintain JSON file for backward compatibility and web access
     const outputDir = path.join(process.cwd(), 'src/data');
     await fs.mkdir(outputDir, { recursive: true });
     
@@ -222,22 +225,25 @@ async function fetchPublications() {
       // File likely doesn't exist, continue
     }
     
+    // Write updated publications to JSON (for web access)
     await fs.writeFile(
       outputPath,
       JSON.stringify(publications, null, 2)
     );
 
-    // Generate tag statistics
+    // Generate comprehensive statistics
     const stats = db.getStats();
     const allTags = db.getAllTags();
 
-    console.log(`Successfully saved ${publications.length} publications to database and JSON!`);
+    console.log('\n=== Publication Fetch Complete ===');
+    console.log(`Successfully processed ${publications.length} publications!`);
     console.log(`Database statistics:`, stats);
     console.log(`Generated ${allTags.length} unique tags:`, allTags.sort());
+    console.log(`JSON file updated for web compatibility`);
     
-    db.close();
   } catch (error) {
     console.error('Error fetching publications:', error.message);
+    
     // Don't overwrite existing publications.json if fetch fails
     const outputPath = path.join(process.cwd(), 'src/data/publications.json');
     try {
@@ -248,6 +254,11 @@ async function fetchPublications() {
       await fs.mkdir(path.join(process.cwd(), 'src/data'), { recursive: true });
       await fs.writeFile(outputPath, '[]');
       console.log('Created empty publications.json due to fetch failure.');
+    }
+  } finally {
+    // Always close database connection
+    if (db) {
+      db.close();
     }
   }
 }

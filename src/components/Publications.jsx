@@ -3,7 +3,7 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { usePublications } from '../hooks/usePublications';
 
 function Publications() {
-  const { publications, loading, error } = usePublications();
+  const { publications, loading, error, getAllTags, getStats } = usePublications();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilters, setActiveFilters] = useState(new Set());
   const [filteredPublications, setFilteredPublications] = useState([]);
@@ -49,7 +49,7 @@ function Publications() {
     return yearB - yearA;
   });
 
-  const allTags = [...new Set(publications.flatMap(pub => pub.tags || []))].sort();
+  const allTags = getAllTags();
 
   const toggleFilter = (tag) => {
     setActiveFilters(prev => {
@@ -99,6 +99,8 @@ function Publications() {
       </div>
     );
   }
+
+  const stats = getStats();
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">      
@@ -210,9 +212,18 @@ function Publications() {
       })}
       
       <div className="mt-12 text-xs text-gray-400">
-        Loaded {publications.length} publications from database
-        {filteredPublications.length !== publications.length && (
-          <span> • Showing {filteredPublications.length} filtered results</span>
+        {stats && (
+          <>
+            Loaded {stats.publications} publications from database
+            {filteredPublications.length !== publications.length && (
+              <span> • Showing {filteredPublications.length} filtered results</span>
+            )}
+            <br />
+            Database contains {stats.authors} unique authors and {stats.tags} tags
+            {stats.yearRange && (
+              <span> • Publications span {stats.yearRange.min_year}-{stats.yearRange.max_year}</span>
+            )}
+          </>
         )}
       </div>
     </div>
