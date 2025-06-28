@@ -1,31 +1,40 @@
 import { useState, useEffect } from 'react';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import publicationsData from '../data/publications.json';
+import { usePublications } from '../hooks/usePublications';
 
 function Publications() {
-  const [publications, setPublications] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { publications, loading, error } = usePublications();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilters, setActiveFilters] = useState(new Set());
+  const [filteredPublications, setFilteredPublications] = useState([]);
 
   useEffect(() => {
-    try {
-      const dataWithTags = publicationsData.map(pub => ({
-        ...pub,
-        tags: pub.tags || []
-      }));
-      
-      setPublications(dataWithTags);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error loading publications:", err);
-      setError(`Failed to load publications: ${err.message}`);
-      setLoading(false);
-    }
-  }, []);
+    filterPublications();
+  }, [publications, searchTerm, activeFilters]);
 
-  const publicationsByYear = publications.reduce((acc, pub) => {
+  const filterPublications = () => {
+    let filtered = publications;
+
+    // Apply search filter
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(pub => 
+        (pub.title && pub.title.toLowerCase().includes(term)) ||
+        (pub.authors && pub.authors.some(author => author && author.toLowerCase().includes(term)))
+      );
+    }
+
+    // Apply tag filters
+    if (activeFilters.size > 0) {
+      filtered = filtered.filter(pub => 
+        pub.tags && pub.tags.some(tag => activeFilters.has(tag))
+      );
+    }
+
+    setFilteredPublications(filtered);
+  };
+
+  const publicationsByYear = filteredPublications.reduce((acc, pub) => {
     const year = pub.year || 'Unknown';
     if (!acc[year]) {
       acc[year] = [];
@@ -41,17 +50,6 @@ function Publications() {
   });
 
   const allTags = [...new Set(publications.flatMap(pub => pub.tags || []))].sort();
-
-  const filterPublications = (pub) => {
-    const matchesSearch = searchTerm === '' || 
-      (pub.title && pub.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (pub.authors && pub.authors.some(author => author && author.toLowerCase().includes(searchTerm.toLowerCase())));
-
-    const matchesTags = activeFilters.size === 0 || 
-      (pub.tags && pub.tags.some(tag => activeFilters.has(tag)));
-
-    return matchesSearch && matchesTags;
-  };
 
   const toggleFilter = (tag) => {
     setActiveFilters(prev => {
@@ -80,7 +78,7 @@ function Publications() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
-        <div className="text-black">Loading publications...</div>
+        <div className="text-black">Loading publications from database...</div>
       </div>
     );
   }
@@ -143,7 +141,7 @@ function Publications() {
       </div>
 
       {sortedYears.map(year => {
-        const yearPublications = publicationsByYear[year].filter(filterPublications);
+        const yearPublications = publicationsByYear[year];
         
         if (yearPublications.length === 0) return null;
 
@@ -212,7 +210,10 @@ function Publications() {
       })}
       
       <div className="mt-12 text-xs text-gray-400">
-        Loaded {publications.length} publications
+        Loaded {publications.length} publications from database
+        {filteredPublications.length !== publications.length && (
+          <span> • Showing {filteredPublications.length} filtered results</span>
+        )}
       </div>
     </div>
   );

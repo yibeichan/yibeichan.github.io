@@ -4,6 +4,7 @@ import path from 'path';
 import querystring from 'querystring';
 import dotenv from 'dotenv';
 import { generateTagsForPublication } from './generateTags.js';
+import { PublicationDB, initializeDatabase } from './database.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -116,6 +117,10 @@ async function getOrcidAccessToken() {
 
 async function fetchPublications() {
   try {
+    // Initialize database
+    initializeDatabase();
+    const db = new PublicationDB();
+    
     const accessToken = await getOrcidAccessToken();
     if (!accessToken) {
       throw new Error('Failed to obtain access token');
@@ -188,15 +193,18 @@ async function fetchPublications() {
         // Generate tags automatically
         publication.tags = generateTagsForPublication(publication);
         
+        // Save to database
+        db.upsertPublication(publication);
         publications.push(publication);
         
-        console.log(`Processed: ${workSummary.title['title'].value} (${publication.tags.length} tags)`);
+        console.log(`✓ Processed: ${workSummary.title['title'].value} (${publication.tags.length} tags)`);
       } catch (error) {
         console.error(`Error processing work: ${error.message}`);
         // Continue with next work instead of failing completely
       }
     }
 
+    // Also maintain JSON file for backward compatibility
     const outputDir = path.join(process.cwd(), 'src/data');
     await fs.mkdir(outputDir, { recursive: true });
     
@@ -220,13 +228,14 @@ async function fetchPublications() {
     );
 
     // Generate tag statistics
-    const allTags = new Set();
-    publications.forEach(pub => {
-      pub.tags.forEach(tag => allTags.add(tag));
-    });
+    const stats = db.getStats();
+    const allTags = db.getAllTags();
 
-    console.log(`Successfully saved ${publications.length} publications!`);
-    console.log(`Generated ${allTags.size} unique tags:`, Array.from(allTags).sort());
+    console.log(`Successfully saved ${publications.length} publications to database and JSON!`);
+    console.log(`Database statistics:`, stats);
+    console.log(`Generated ${allTags.length} unique tags:`, allTags.sort());
+    
+    db.close();
   } catch (error) {
     console.error('Error fetching publications:', error.message);
     // Don't overwrite existing publications.json if fetch fails
@@ -243,5 +252,5 @@ async function fetchPublications() {
   }
 }
 
-console.log('Starting ORCID publications fetch with automatic tag generation...');
+console.log('Starting ORCID publications fetch with SQLite database storage...');
 fetchPublications();
