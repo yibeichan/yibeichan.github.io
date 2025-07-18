@@ -1,5 +1,54 @@
 [
   {
+    "title": "Standardizing Survey Data Collection to Enhance Reproducibility: Development and Comparative Evaluation of the ReproSchema Ecosystem",
+    "authors": [
+      "Yibei Chen",
+      "Dorota Jarecka",
+      "Sanu Ann Abraham",
+      "Remi Gau",
+      "Evan Ng",
+      "Daniel M Low",
+      "Isaac Bevers",
+      "Alistair Johnson",
+      "Anisha Keshavan",
+      "Arno Klein",
+      "Jon Clucas",
+      "Zaliqa Rosli",
+      "Steven M Hodge",
+      "Janosch Linkersdörfer",
+      "Hauke Bartsch",
+      "Samir Das",
+      "Damien Fair",
+      "David Kennedy",
+      "Satrajit S Ghosh"
+    ],
+    "journal": "Journal of Medical Internet Research",
+    "year": "2025",
+    "url": "https://doi.org/10.2196/63343",
+    "doi": "10.2196/63343",
+    "tags": []
+  },
+  {
+    "title": "Neural correlates of evidence accumulation in social-affective decision-making under perceptual ambiguity",
+    "authors": [
+      "Sai Sun",
+      "Tao Xie",
+      "Yibei Chen",
+      "Jinge Wang",
+      "Xin Li",
+      "Rongjun Yu",
+      "Peter Brunner",
+      "Jon T. Willie",
+      "Shuo Wang",
+      "Hongbo Yu"
+    ],
+    "journal": "Preprint",
+    "year": "2025",
+    "url": "https://doi.org/10.1101/2025.06.24.660932",
+    "doi": "10.1101/2025.06.24.660932",
+    "tags": []
+  },
+  {
     "title": "Context modulates brain state dynamics and behavioral responses during narrative comprehension",
     "authors": [
       "Yibei Chen",
@@ -12,13 +61,66 @@
     "year": "2025",
     "url": "https://doi.org/10.1101/2025.04.05.647323",
     "doi": "10.1101/2025.04.05.647323",
-    "tags": [
-      "Neuroscience",
-      "Brain States",
-      "Narrative Processing",
-      "Cognitive Science",
-      "fMRI"
-    ]
+    "tags": []
+  },
+  {
+    "title": "Standardizing Survey Data Collection to Enhance Reproducibility: Development and Comparative Evaluation of the ReproSchema Ecosystem (Preprint)",
+    "authors": [
+      "Yibei Chen",
+      "Dorota Jarecka",
+      "Sanu Ann Abraham",
+      "Remi Gau",
+      "Evan Ng",
+      "Daniel M Low",
+      "Isaac Bevers",
+      "Alistair Johnson",
+      "Anisha Keshavan",
+      "Arno Klein",
+      "Jon Clucas",
+      "Zaliqa Rosli",
+      "Steven M Hodge",
+      "Janosch Linkersdörfer",
+      "Hauke Bartsch",
+      "Samir Das",
+      "Damien Fair",
+      "David Kennedy",
+      "Satrajit S Ghosh"
+    ],
+    "journal": "Preprint",
+    "year": "2024",
+    "url": "https://doi.org/10.2196/preprints.63343",
+    "doi": "10.2196/preprints.63343",
+    "tags": []
+  },
+  {
+    "title": "Unraveling moral and emotional discourses on social media: a study of three cases",
+    "authors": [
+      "Yibei Chen",
+      "Amber X. Chen",
+      "Hongbo Yu",
+      "Shaojing Sun"
+    ],
+    "journal": "Information, Communication & Society",
+    "year": "2024",
+    "url": "https://doi.org/10.1080/1369118X.2023.2246551",
+    "doi": "10.1080/1369118X.2023.2246551",
+    "tags": []
+  },
+  {
+    "title": "BABS in Action: Merging Reproducibility and Scalability for Large-Scale Neuroimaging Analysis With BIDS Apps",
+    "authors": [
+      "Chenying Zhao",
+      "Yibei Chen",
+      "Dorota Jarecka",
+      "Satrajit Ghosh",
+      "Matthew Cieslak",
+      "Theodore D. Satterthwaite"
+    ],
+    "journal": "Biological Psychiatry",
+    "year": "2024",
+    "url": null,
+    "doi": "10.1016/j.biopsych.2024.02.056",
+    "tags": []
   },
   {
     "title": "A reproducible and generalizable software workflow for analysis of large-scale neuroimaging data collections using BIDS Apps",
@@ -46,45 +148,15 @@
     ],
     "journal": "Imaging Neuroscience",
     "year": "2024",
-    "url": "https://doi.org/10.1162/imag_a_00074",
+    "url": null,
     "doi": "10.1162/imag_a_00074",
-    "tags": [
-      "Neuroscience",
-      "Reproducibility",
-      "Software Development",
-      "BIDS",
-      "Data Analysis",
-      "Open Science"
-    ]
-  },
-  {
-    "title": "BABS in Action: Merging Reproducibility and Scalability for Large-Scale Neuroimaging Analysis With BIDS Apps",
-    "authors": [
-      "Chenying Zhao",
-      "Yibei Chen",
-      "Dorota Jarecka",
-      "Satrajit Ghosh",
-      "Matthew Cieslak",
-      "Theodore D. Satterthwaite"
-    ],
-    "journal": "Biological Psychiatry",
-    "year": "2024",
-    "url": "https://doi.org/10.1016/j.biopsych.2024.02.056",
-    "doi": "10.1016/j.biopsych.2024.02.056",
-    "tags": [
-      "Neuroimaging",
-      "Reproducibility",
-      "BIDS",
-      "Data Analysis",
-      "Software Tools", 
-      "Brain Imaging"
-    ]
+    "tags": []
   },
   {
     "title": "Measures of Argument Strength: A Computational, Large-Scale Analysis of Effective Persuasion in Real-World Debates",
     "authors": [
       "Youk, S.",
-      "Malik, M.", 
+      "Malik, M.",
       "Chen, Y.",
       "Hopp, F.R.",
       "Weber, R."
@@ -93,85 +165,7 @@
     "year": "2024",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85164662767&partnerID=MN8TOARS",
     "doi": "10.1080/19312458.2023.2230866",
-    "tags": [
-      "Computational Methods",
-      "Natural Language Processing",
-      "Persuasion",
-      "Communication",
-      "Data Mining"
-    ]
-  },
-  {
-    "title": "ReproSchema: Enhancing Research Reproducibility through Standardized Survey Data Collection (Preprint)",
-    "authors": [
-      "Yibei Chen",
-      "Dorota Jarecka",
-      "Sanu Ann Abraham",
-      "Remi Gau",
-      "Evan Ng",
-      "Daniel M. Low",
-      "Isaac Bevers",
-      "Alistair Johnson",
-      "Anisha Keshavan",
-      "Arno Klein",
-      "Jon Clucas",
-      "Zaliqa Rosli",
-      "Steven M. Hodge",
-      "Janosch Linkersdörfer",
-      "Hauke Bartsch",
-      "Samir Das",
-      "Damien Fair",
-      "David Kennedy",
-      "Satrajit S. Ghosh"
-    ],
-    "journal": "Preprint",
-    "year": "2024",
-    "url": "https://doi.org/10.2196/preprints.63343",
-    "doi": "10.2196/preprints.63343",
-    "tags": [
-      "Reproducibility",
-      "Data Collection",
-      "Research Methods",
-      "Standardization",
-      "Survey Design",
-      "Open Science"
-    ]
-  },
-  {
-    "title": "Standardizing Survey Data Collection to Enhance Reproducibility: An Evaluation of ReproSchema (Preprint)",
-    "authors": [
-      "Yibei Chen",
-      "Dorota Jarecka",
-      "Sanu Ann Abraham",
-      "Remi Gau",
-      "Evan Ng",
-      "Daniel M. Low",
-      "Isaac Bevers",
-      "Alistair Johnson",
-      "Anisha Keshavan",
-      "Arno Klein",
-      "Jon Clucas",
-      "Zaliqa Rosli",
-      "Steven M. Hodge",
-      "Janosch Linkersdörfer",
-      "Hauke Bartsch",
-      "Samir Das",
-      "Damien Fair",
-      "David Kennedy",
-      "Satrajit S. Ghosh"
-    ],
-    "journal": "Journal of Medical Internet Research",
-    "year": "2024",
-    "url": "https://doi.org/10.2196/63343",
-    "doi": "10.2196/63343",
-    "tags": [
-      "Reproducibility",
-      "Data Collection",
-      "Research Methods",
-      "Survey Design",
-      "Methodology",
-      "Open Science"
-    ]
+    "tags": []
   },
   {
     "title": "The gendered lens of AI: examining news imagery across digital spaces",
@@ -184,35 +178,21 @@
     "year": "2024",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85184854408&partnerID=MN8TOARS",
     "doi": "10.1093/jcmc/zmad047",
-    "tags": [
-      "Computational Methods",
-      "Media Studies",
-      "Artificial Intelligence",
-      "Gender Studies",
-      "Digital Media",
-      "Content Analysis"
-    ]
+    "tags": []
   },
   {
-    "title": "Unraveling moral and emotional discourses on social media: a study of three cases",
+    "title": "Uncovering the structure of media multitasking and attention problems using network analytic techniques",
     "authors": [
+      "Jacob T. Fisher",
+      "Frederic R. Hopp",
       "Yibei Chen",
-      "Amber X. Chen",
-      "Hongbo Yu",
-      "Shaojing Sun"
+      "René Weber"
     ],
-    "journal": "Information, Communication & Society",
-    "year": "2024",
-    "url": "https://doi.org/10.1080/1369118X.2023.2246551",
-    "doi": "10.1080/1369118X.2023.2246551",
-    "tags": [
-      "Media Studies",
-      "Social Science",
-      "Social Media",
-      "Discourse Analysis",
-      "Digital Communication",
-      "Sentiment Analysis"
-    ]
+    "journal": "Computers in Human Behavior",
+    "year": "2023",
+    "url": "https://doi.org/10.1016/j.chb.2023.107829",
+    "doi": "10.1016/j.chb.2023.107829",
+    "tags": []
   },
   {
     "title": "A calculus of probability or belief? Neural underpinnings of social decision-making in a card game",
@@ -227,14 +207,7 @@
     "year": "2023",
     "url": "https://doi.org/10.1016/j.neuropsychologia.2023.108635",
     "doi": "10.1016/j.neuropsychologia.2023.108635",
-    "tags": [
-      "Cognitive Science",
-      "Neuroscience",
-      "Social Science",
-      "Decision Making",
-      "Game Theory",
-      "Behavioral Science"
-    ]
+    "tags": []
   },
   {
     "title": "A reproducible and generalizable software workflow for analysis of large-scale neuroimaging data collections using BIDS Apps",
@@ -264,36 +237,7 @@
     "year": "2023",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85171241851&partnerID=MN8TOARS",
     "doi": "10.1101/2023.08.16.552472",
-    "tags": [
-      "Neuroimaging",
-      "Reproducibility",
-      "Software Development",
-      "BIDS",
-      "Data Analysis",
-      "Brain Imaging",
-      "Open Science"
-    ]
-  },
-  {
-    "title": "Uncovering the structure of media multitasking and attention problems using network analytic techniques",
-    "authors": [
-      "Jacob T. Fisher",
-      "Frederic R. Hopp",
-      "Yibei Chen",
-      "René Weber"
-    ],
-    "journal": "Computers in Human Behavior",
-    "year": "2023",
-    "url": "https://doi.org/10.1016/j.chb.2023.107829",
-    "doi": "10.1016/j.chb.2023.107829",
-    "tags": [
-      "Computational Methods",
-      "Media Studies",
-      "Network Analysis",
-      "Attention",
-      "Human Behavior",
-      "Digital Media"
-    ]
+    "tags": []
   },
   {
     "title": "Reproducing FSL's fMRI data analysis via Nipype: Relevance, challenges, and solutions",
@@ -310,14 +254,7 @@
     "year": "2022",
     "url": "http://dx.doi.org/10.3389/fnimg.2022.953215",
     "doi": "10.3389/fnimg.2022.953215",
-    "tags": [
-      "Neuroimaging",
-      "Neuroscience",
-      "fMRI",
-      "Data Analysis",
-      "Research Methods",
-      "Software Tools"
-    ]
+    "tags": []
   },
   {
     "title": "Does Regional Variation in Pathogen Prevalence Predict the Moralization of Language in COVID-19 News?",
@@ -331,17 +268,10 @@
     "year": "2021",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85117107639&partnerID=MN8TOARS",
     "doi": "10.1177/0261927X211044194",
-    "tags": [
-      "Media Studies",
-      "COVID-19",
-      "Language Analysis",
-      "Social Psychology",
-      "Public Health",
-      "Content Analysis"
-    ]
+    "tags": []
   },
   {
-    "title": "Obesity as a self-regulated epidemic: coverage of obesity in Chinese newspapers",
+    "title": "Obesity as a “self-regulated epidemic”: coverage of obesity in Chinese newspapers",
     "authors": [
       "Sun, S.",
       "He, J.",
@@ -354,14 +284,7 @@
     "year": "2021",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85082644883&partnerID=MN8TOARS",
     "doi": "10.1007/s40519-020-00886-8",
-    "tags": [
-      "Media Studies",
-      "Public Health",
-      "Health Communication",
-      "Content Analysis",
-      "Chinese Media",
-      "Obesity Research"
-    ]
+    "tags": []
   },
   {
     "title": "Chinese media coverage of eating disorders: Disorder representations and patient profiles",
@@ -376,14 +299,7 @@
     "year": "2020",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85070873655&partnerID=MN8TOARS",
     "doi": "10.1002/eat.23154",
-    "tags": [
-      "Media Studies",
-      "Mental Health",
-      "Health Communication",
-      "Content Analysis",
-      "Chinese Media",
-      "Eating Disorders"
-    ]
+    "tags": []
   },
   {
     "title": "Newspaper coverage of artificial intelligence: A perspective of emerging technologies",
@@ -397,14 +313,7 @@
     "year": "2020",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85085288433&partnerID=MN8TOARS",
     "doi": "10.1016/j.tele.2020.101433",
-    "tags": [
-      "Media Studies",
-      "Artificial Intelligence",
-      "Technology Coverage",
-      "Content Analysis",
-      "Digital Media",
-      "Emerging Tech"
-    ]
+    "tags": []
   },
   {
     "title": "Objective facts or misleading hype? Associations between features of e-cigarette marketing and sales on a Chinese e-commerce platform",
@@ -419,13 +328,6 @@
     "year": "2020",
     "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85090905921&partnerID=MN8TOARS",
     "doi": "10.3390/ijerph17186711",
-    "tags": [
-      "Public Health",
-      "E-commerce",
-      "Marketing Analysis",
-      "Digital Marketing",
-      "Health Communication",
-      "Consumer Behavior"
-    ]
+    "tags": []
   }
 ]
