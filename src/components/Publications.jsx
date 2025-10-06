@@ -77,28 +77,18 @@ function Publications() {
     return isYibei ? <u>{author}</u> : author;
   };
 
+  let content;
+
   if (loading) {
-    return (
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <Helmet>
-          <title>Publications | Yibei Chen</title>
-          <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-          <link rel="canonical" href="https://yibeichen.me/publications" />
-        </Helmet>
+    content = (
+      <div>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">Loading publications...</div>
       </div>
     );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <Helmet>
-          <title>Publications | Yibei Chen</title>
-          <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-          <link rel="canonical" href="https://yibeichen.me/publications" />
-        </Helmet>
+  } else if (error) {
+    content = (
+      <div>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">{error}</div>
         <div className="mt-4">
@@ -111,25 +101,19 @@ function Publications() {
         </div>
       </div>
     );
-  }
-
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8">     
-      <Helmet>
-        <title>Publications | Yibei Chen</title>
-        <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-        <link rel="canonical" href="https://yibeichen.me/publications" />
-      </Helmet>
-      <div className="mb-8">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search by title or author..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34] py-3 px-4 bg-gray-50"
-          />
-        </div>
+  } else {
+    content = (
+      <>
+        <div className="mb-8">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search by title or author..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#A31F34] focus:ring-[#A31F34] py-3 px-4 bg-gray-50"
+            />
+          </div>
 
         {allTags.length > 0 && (
           <div className="mt-6">
@@ -230,6 +214,18 @@ function Publications() {
       <div className="mt-12 text-xs text-gray-400">
         Loaded {publications.length} publications
       </div>
+      </>
+    );
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-8"> 
+      <Helmet>
+        <title>Publications | Yibei Chen</title>
+        <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
+        <link rel="canonical" href="https://yibeichen.me/publications" />
+      </Helmet>
+      {content}
     </div>
   );
 }
