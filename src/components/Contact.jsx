@@ -1,14 +1,14 @@
 import { socialLinks } from '../data/socialLinks';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from './PageHelmet';
 
 function Contact() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <Helmet>
-        <title>Contact | Yibei Chen</title>
-        <meta name="description" content="Contact Yibei Chen via email form and social links." />
-        <link rel="canonical" href="https://yibeichen.me/contact" />
-      </Helmet>
+      <PageHelmet
+        title="Contact"
+        description="Contact Yibei Chen via email form and social links."
+        path="/contact"
+      />
       {/* Modified structure: Form is now in a centered, max-width container */}
       <div className="max-w-xl mx-auto">
         {/* Contact Form */}

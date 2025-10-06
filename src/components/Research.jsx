@@ -1,15 +1,15 @@
 import { researchAreas } from '../data/researchAreas';
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from './PageHelmet';
 
 function Research() {
   return (
     <div>
-      <Helmet>
-        <title>Research | Yibei Chen</title>
-        <meta name="description" content="Research highlights spanning neuroimaging, methods, and computational social science." />
-        <link rel="canonical" href="https://yibeichen.me/research" />
-      </Helmet>
+      <PageHelmet
+        title="Research"
+        description="Research highlights spanning neuroimaging, methods, and computational social science."
+        path="/research"
+      />
       {/* Hero Section - background will be full width */}
       <div className="bg-gray-900 text-white py-24">
         {/* This inner div constrains the text content to align with navbar */}

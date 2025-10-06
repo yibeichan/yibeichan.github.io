@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from './PageHelmet';
 
 function CV() {
   // Use the correct document ID
@@ -9,11 +9,7 @@ function CV() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <Helmet>
-        <title>CV | Yibei Chen</title>
-        <meta name="description" content="Curriculum Vitae of Yibei Chen." />
-        <link rel="canonical" href="https://yibeichen.me/cv" />
-      </Helmet>
+      <PageHelmet title="CV" description="Curriculum Vitae of Yibei Chen." path="/cv" />
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 font-serif mb-4">Curriculum Vitae</h1>
       </div>

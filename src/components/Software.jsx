@@ -1,7 +1,7 @@
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { softwareProjects } from '../data/softwareData';
+import PageHelmet from './PageHelmet';
 
 function Section({ children, background = 'white', isFirst = false, customPadding = null }) {
   const bgClass = background === 'gray' ? 'bg-gray-50' : 'bg-white';
@@ -19,11 +19,11 @@ function Section({ children, background = 'white', isFirst = false, customPaddin
 function Software() {
   return (
     <div>
-      <Helmet>
-        <title>Software | Yibei Chen</title>
-        <meta name="description" content="Open-source tools and frameworks for reproducible scientific research." />
-        <link rel="canonical" href="https://yibeichen.me/softwares" />
-      </Helmet>
+      <PageHelmet
+        title="Software"
+        description="Open-source tools and frameworks for reproducible scientific research."
+        path="/softwares"
+      />
       <div className="bg-gray-800 text-white py-24">
         <div className="max-w-6xl mx-auto px-4">
           <div>

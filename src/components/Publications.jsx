@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from './PageHelmet';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import publicationsData from '../data/publications.json';
 
@@ -220,11 +220,11 @@ function Publications() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8"> 
-      <Helmet>
-        <title>Publications | Yibei Chen</title>
-        <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-        <link rel="canonical" href="https://yibeichen.me/publications" />
-      </Helmet>
+      <PageHelmet
+        title="Publications"
+        description="Peer-reviewed papers, preprints, and publications by Yibei Chen."
+        path="/publications"
+      />
       {content}
     </div>
   );
