@@ -1,5 +1,6 @@
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { softwareProjects } from '../data/softwareData';
 
 function Section({ children, background = 'white', isFirst = false, customPadding = null }) {
@@ -18,6 +19,11 @@ function Section({ children, background = 'white', isFirst = false, customPaddin
 function Software() {
   return (
     <div>
+      <Helmet>
+        <title>Software | Yibei Chen</title>
+        <meta name="description" content="Open-source tools and frameworks for reproducible scientific research." />
+        <link rel="canonical" href="https://yibeichan.github.io/softwares" />
+      </Helmet>
       <div className="bg-gray-800 text-white py-24">
         <div className="max-w-6xl mx-auto px-4">
           <div>
@@ -42,6 +48,7 @@ function Software() {
                       <img 
                         src={project.image} 
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-full object-contain p-4"
                         style={{ maxHeight: '240px' }}
                       />

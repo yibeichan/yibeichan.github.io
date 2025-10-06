@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import publicationsData from '../data/publications.json';
 
@@ -79,6 +80,11 @@ function Publications() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
+        <Helmet>
+          <title>Publications | Yibei Chen</title>
+          <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
+          <link rel="canonical" href="https://yibeichan.github.io/publications" />
+        </Helmet>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">Loading publications...</div>
       </div>
@@ -88,6 +94,11 @@ function Publications() {
   if (error) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
+        <Helmet>
+          <title>Publications | Yibei Chen</title>
+          <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
+          <link rel="canonical" href="https://yibeichan.github.io/publications" />
+        </Helmet>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">{error}</div>
         <div className="mt-4">
@@ -103,7 +114,12 @@ function Publications() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">      
+    <div className="max-w-6xl mx-auto px-4 py-8">     
+      <Helmet>
+        <title>Publications | Yibei Chen</title>
+        <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
+        <link rel="canonical" href="https://yibeichan.github.io/publications" />
+      </Helmet>
       <div className="mb-8">
         <div className="relative">
           <input
