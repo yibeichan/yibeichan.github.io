@@ -2,8 +2,12 @@ name: Update Publications from ORCID
 
 on:
   workflow_dispatch: # Allows manual triggering
-  # schedule:
-  #   - cron: '0 0 * * 0' # Optional: Runs every Sunday at midnight UTC
+  schedule:
+    - cron: '0 0 * * 0' # Runs every Sunday at midnight UTC
+
+concurrency:
+  group: update-publications
+  cancel-in-progress: false
 
 jobs:
   update_publications:
@@ -18,7 +22,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Use a current LTS version
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
