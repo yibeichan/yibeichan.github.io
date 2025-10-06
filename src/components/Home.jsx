@@ -6,8 +6,8 @@ function Home() {
   return (
     <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center p-4 sm:px-4">
       <PageHelmet
-        title="About"
-        description="About Yibei Chen: research interests, affiliations, and links."
+        fullTitle="Yibei Chen, Ph.D. — Postdoctoral Associate, MIT"
+        description="Research in naturalistic neuroscience, communication, and open-source tools. Publications, software, CV, and contact."
         path="/"
       />
       <div className="max-w-6xl mx-auto w-full">

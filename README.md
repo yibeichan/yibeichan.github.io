@@ -1,4 +1,4 @@
-# Yibei Chen - Academic Portfolio
+# Yibei Chen, Ph.D. — Postdoctoral Associate, MIT
 
 ## Custom Domain & SEO
 
