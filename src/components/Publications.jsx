@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PageHelmet from './PageHelmet';
+import PublicationsJsonLd from './PublicationsJsonLd';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import publicationsData from '../data/publications.json';
 
@@ -104,6 +105,8 @@ function Publications() {
   } else {
     content = (
       <>
+        {/* JSON-LD is included only when publications are loaded */}
+        <PublicationsJsonLd publications={publications} />
         <div className="mb-8">
           <div className="relative">
             <input

@@ -3,8 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Trigger the workflow on pushes to the main branch
-  workflow_dispatch: # Allow manual triggering
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -21,13 +25,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Use a current LTS version
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci # Use ci for faster, more reliable installs in CI
 
       - name: Build project
-        run: npm run build # Assumes your build script is 'build' and output is 'dist'
+        run: npm run build
+        env:
+          SITE_URL: https://yibeichen.me
         # If your build requires environment variables, set them here using the env key
         # For example, if you need a base path for a project site (not a user/org site):
         # env:
