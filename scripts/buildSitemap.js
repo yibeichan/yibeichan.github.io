@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const BASE_URL = process.env.SITE_URL || 'https://yibeichan.github.io';
+const BASE_URL = process.env.SITE_URL || 'https://yibeichen.me';
 const ROUTES = ['/', '/research', '/publications', '/softwares', '/cv', '/contact'];
 
 function url(loc, priority = '0.7', changefreq = 'weekly') {
@@ -29,4 +29,3 @@ async function build() {
 }
 
 build();
-

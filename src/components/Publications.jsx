@@ -83,7 +83,7 @@ function Publications() {
         <Helmet>
           <title>Publications | Yibei Chen</title>
           <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-          <link rel="canonical" href="https://yibeichan.github.io/publications" />
+          <link rel="canonical" href="https://yibeichen.me/publications" />
         </Helmet>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">Loading publications...</div>
@@ -97,7 +97,7 @@ function Publications() {
         <Helmet>
           <title>Publications | Yibei Chen</title>
           <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-          <link rel="canonical" href="https://yibeichan.github.io/publications" />
+          <link rel="canonical" href="https://yibeichen.me/publications" />
         </Helmet>
         <h2 className="text-3xl font-bold text-black mb-8 font-serif">Publications</h2>
         <div className="text-black">{error}</div>
@@ -118,7 +118,7 @@ function Publications() {
       <Helmet>
         <title>Publications | Yibei Chen</title>
         <meta name="description" content="Peer-reviewed papers, preprints, and publications by Yibei Chen." />
-        <link rel="canonical" href="https://yibeichan.github.io/publications" />
+        <link rel="canonical" href="https://yibeichen.me/publications" />
       </Helmet>
       <div className="mb-8">
         <div className="relative">

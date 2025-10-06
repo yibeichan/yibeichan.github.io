@@ -22,7 +22,7 @@ function Software() {
       <Helmet>
         <title>Software | Yibei Chen</title>
         <meta name="description" content="Open-source tools and frameworks for reproducible scientific research." />
-        <link rel="canonical" href="https://yibeichan.github.io/softwares" />
+        <link rel="canonical" href="https://yibeichen.me/softwares" />
       </Helmet>
       <div className="bg-gray-800 text-white py-24">
         <div className="max-w-6xl mx-auto px-4">

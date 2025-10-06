@@ -12,7 +12,7 @@ function CV() {
       <Helmet>
         <title>CV | Yibei Chen</title>
         <meta name="description" content="Curriculum Vitae of Yibei Chen." />
-        <link rel="canonical" href="https://yibeichan.github.io/cv" />
+        <link rel="canonical" href="https://yibeichen.me/cv" />
       </Helmet>
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 font-serif mb-4">Curriculum Vitae</h1>

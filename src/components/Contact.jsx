@@ -7,7 +7,7 @@ function Contact() {
       <Helmet>
         <title>Contact | Yibei Chen</title>
         <meta name="description" content="Contact Yibei Chen via email form and social links." />
-        <link rel="canonical" href="https://yibeichan.github.io/contact" />
+        <link rel="canonical" href="https://yibeichen.me/contact" />
       </Helmet>
       {/* Modified structure: Form is now in a centered, max-width container */}
       <div className="max-w-xl mx-auto">

@@ -8,7 +8,7 @@ function Research() {
       <Helmet>
         <title>Research | Yibei Chen</title>
         <meta name="description" content="Research highlights spanning neuroimaging, methods, and computational social science." />
-        <link rel="canonical" href="https://yibeichan.github.io/research" />
+        <link rel="canonical" href="https://yibeichen.me/research" />
       </Helmet>
       {/* Hero Section - background will be full width */}
       <div className="bg-gray-900 text-white py-24">

@@ -8,7 +8,7 @@ function Home() {
       <Helmet>
         <title>About | Yibei Chen</title>
         <meta name="description" content="About Yibei Chen: research interests, affiliations, and links." />
-        <link rel="canonical" href="https://yibeichan.github.io/" />
+        <link rel="canonical" href="https://yibeichen.me/" />
       </Helmet>
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
