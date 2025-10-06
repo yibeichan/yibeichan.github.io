@@ -1,6 +1,7 @@
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { softwareProjects } from '../data/softwareData';
+import PageHelmet from './PageHelmet';
 
 function Section({ children, background = 'white', isFirst = false, customPadding = null }) {
   const bgClass = background === 'gray' ? 'bg-gray-50' : 'bg-white';
@@ -18,6 +19,11 @@ function Section({ children, background = 'white', isFirst = false, customPaddin
 function Software() {
   return (
     <div>
+      <PageHelmet
+        title="Software"
+        description="Open-source tools and frameworks for reproducible scientific research."
+        path="/softwares"
+      />
       <div className="bg-gray-800 text-white py-24">
         <div className="max-w-6xl mx-auto px-4">
           <div>
@@ -42,6 +48,7 @@ function Software() {
                       <img 
                         src={project.image} 
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-full object-contain p-4"
                         style={{ maxHeight: '240px' }}
                       />

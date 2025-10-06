@@ -1,9 +1,15 @@
 import { researchAreas } from '../data/researchAreas';
 import { CodeBracketIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import PageHelmet from './PageHelmet';
 
 function Research() {
   return (
     <div>
+      <PageHelmet
+        title="Research"
+        description="Research highlights spanning neuroimaging, methods, and computational social science."
+        path="/research"
+      />
       {/* Hero Section - background will be full width */}
       <div className="bg-gray-900 text-white py-24">
         {/* This inner div constrains the text content to align with navbar */}
@@ -34,6 +40,7 @@ function Research() {
                       <img
                         src={project.image}
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-64 object-cover"
                       />
                       <div className="p-6">

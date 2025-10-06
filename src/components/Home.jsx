@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
+import PageHelmet from './PageHelmet';
 import { socialLinks } from '../data/socialLinks';
 
 function Home() {
   return (
     <div className="min-h-[calc(100vh-theme(spacing.32))] flex items-center justify-center p-4 sm:px-4">
+      <PageHelmet
+        title="About"
+        description="About Yibei Chen: research interests, affiliations, and links."
+        path="/"
+      />
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           {/* Left Column */}
@@ -13,6 +19,7 @@ function Home() {
                 <img
                   src="/images/headshot.jpg"
                   alt="Yibei Chen"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PageHelmet from './PageHelmet';
 
 function CV() {
   // Use the correct document ID
@@ -8,6 +9,7 @@ function CV() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <PageHelmet title="CV" description="Curriculum Vitae of Yibei Chen." path="/cv" />
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 font-serif mb-4">Curriculum Vitae</h1>
       </div>

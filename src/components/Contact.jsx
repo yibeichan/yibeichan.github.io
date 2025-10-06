@@ -1,8 +1,14 @@
 import { socialLinks } from '../data/socialLinks';
+import PageHelmet from './PageHelmet';
 
 function Contact() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <PageHelmet
+        title="Contact"
+        description="Contact Yibei Chen via email form and social links."
+        path="/contact"
+      />
       {/* Modified structure: Form is now in a centered, max-width container */}
       <div className="max-w-xl mx-auto">
         {/* Contact Form */}

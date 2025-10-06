@@ -1,5 +1,12 @@
 # Yibei Chen - Academic Portfolio
 
+## Custom Domain & SEO
+
+- Primary domain: `https://yibeichen.me` (GitHub Pages will 301-redirect from `yibeichan.github.io`).
+- A `CNAME` file is included to pin the custom domain.
+- Canonical URLs, Open Graph/Twitter tags, robots.txt, and the sitemap are configured for `https://yibeichen.me`.
+- Sitemap: `https://yibeichen.me/sitemap.xml` (generated on build). Override base by setting `SITE_URL` during build if needed.
+
 ## Setting Up GitHub Secrets
 
 To securely store and manage sensitive information such as API keys and access tokens, you can use GitHub Secrets. Follow the steps below to set up GitHub Secrets for this repository:
