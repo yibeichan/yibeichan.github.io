@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import Home from './components/Home'
 import Research from './components/Research'
 import Publications from './components/Publications'
+import News from './components/News'
 import Software from './components/Software'
 import Contact from './components/Contact'
 import CV from './components/CV'
@@ -36,8 +37,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/research" element={<Research />} />
-              <Route path="/publications" element={<Publications />} />
-              <Route path="/softwares" element={<Software />} />
+            <Route path="/publications" element={<Publications />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/softwares" element={<Software />} />
               <Route path="/cv" element={<CV />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
