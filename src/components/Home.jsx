@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageHelmet from './PageHelmet';
-import newsData from '../data/news.json';
+import newsMd from '../data/news.md?raw';
+import { parseNewsMarkdown } from '../utils/parseNews';
 import { socialLinks } from '../data/socialLinks';
 
 function Home() {
@@ -105,7 +106,7 @@ function Home() {
             <section aria-labelledby="news-heading" className="mt-4">
               <h2 id="news-heading" className="text-2xl font-semibold text-gray-900 font-serif mb-3">Latest News</h2>
               <ul className="divide-y divide-gray-200 bg-white rounded-lg shadow-sm">
-                {([...newsData]
+                {(parseNewsMarkdown(newsMd)
                   .sort((a, b) => new Date(b.date) - new Date(a.date))
                   .slice(0, 5))
                   .map((item, idx) => (

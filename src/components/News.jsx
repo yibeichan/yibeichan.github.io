@@ -1,5 +1,6 @@
 import PageHelmet from './PageHelmet';
-import newsData from '../data/news.json';
+import newsMd from '../data/news.md?raw';
+import { parseNewsMarkdown, sortNews } from '../utils/parseNews';
 
 function formatDateMMDDYYYY(isoDate) {
   try {
@@ -34,7 +35,8 @@ function sortNews(items) {
 }
 
 export default function News({ limit }) {
-  const sorted = sortNews(newsData || []);
+  const parsed = parseNewsMarkdown(newsMd);
+  const sorted = sortNews(parsed);
   const sliced = typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
 
   return (
@@ -80,4 +82,3 @@ export default function News({ limit }) {
     </div>
   );
 }
-
