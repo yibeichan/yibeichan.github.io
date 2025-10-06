@@ -22,18 +22,6 @@ function isNew(isoDate, days = 30) {
   return now - then <= days * 24 * 60 * 60 * 1000;
 }
 
-function sortNews(items) {
-  return [...items].sort((a, b) => {
-    // pinned first
-    if (a.pinned && !b.pinned) return -1;
-    if (!a.pinned && b.pinned) return 1;
-    // then by date desc
-    const da = new Date(a.date).getTime();
-    const db = new Date(b.date).getTime();
-    return db - da;
-  });
-}
-
 export default function News({ limit }) {
   const parsed = parseNewsMarkdown(newsMd);
   const sorted = sortNews(parsed);
