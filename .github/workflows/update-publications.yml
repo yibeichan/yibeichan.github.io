@@ -3,7 +3,7 @@ name: Update Publications from ORCID
 on:
   workflow_dispatch: # Allows manual triggering
   schedule:
-    - cron: '0 0 * * 0' # Runs every Sunday at midnight UTC
+    - cron: '0 0 1 * *' # Runs on the 1st of each month at 00:00 UTC
 
 concurrency:
   group: update-publications
