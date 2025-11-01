@@ -107,22 +107,6 @@
     "tags": []
   },
   {
-    "title": "BABS in Action: Merging Reproducibility and Scalability for Large-Scale Neuroimaging Analysis With BIDS Apps",
-    "authors": [
-      "Chenying Zhao",
-      "Yibei Chen",
-      "Dorota Jarecka",
-      "Satrajit Ghosh",
-      "Matthew Cieslak",
-      "Theodore D. Satterthwaite"
-    ],
-    "journal": "Biological Psychiatry",
-    "year": "2024",
-    "url": null,
-    "doi": "10.1016/j.biopsych.2024.02.056",
-    "tags": []
-  },
-  {
     "title": "A reproducible and generalizable software workflow for analysis of large-scale neuroimaging data collections using BIDS Apps",
     "authors": [
       "Chenying Zhao",
@@ -150,6 +134,37 @@
     "year": "2024",
     "url": null,
     "doi": "10.1162/imag_a_00074",
+    "tags": []
+  },
+  {
+    "title": "BABS in Action: Merging Reproducibility and Scalability for Large-Scale Neuroimaging Analysis With BIDS Apps",
+    "authors": [
+      "Zhao, Chenying",
+      "Chen, Yibei",
+      "Jarecka, Dorota",
+      "Ghosh, Satrajit",
+      "Cieslak, Matthew",
+      "Satterthwaite, Theodore D."
+    ],
+    "journal": "Preprint",
+    "year": "2024",
+    "url": "http://dx.doi.org/10.1016/j.biopsych.2024.02.056",
+    "doi": "10.1016/j.biopsych.2024.02.056",
+    "tags": []
+  },
+  {
+    "title": "Harnessing QA/QC protocols for diffusion MRI neuroimaging workflows with MRIQC",
+    "authors": [
+      "Chen, Yibei",
+      "Provins, Céline",
+      "Markiewicz, Christopher Johnson",
+      "Rokem, Ariel",
+      "Esteban, Oscar"
+    ],
+    "journal": "Preprint",
+    "year": "2024",
+    "url": "https://doi.org/10.31219/osf.io/epbhx",
+    "doi": "10.31219/osf.io/epbhx",
     "tags": []
   },
   {
