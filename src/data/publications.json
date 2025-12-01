@@ -255,6 +255,20 @@
     "tags": []
   },
   {
+    "title": "Uncovering the Structure of Media Multitasking and Attention Problems Using Network Analytic Techniques",
+    "authors": [
+      "Jacob T. Fisher",
+      "Frederic R. Hopp",
+      "Yibei Chen",
+      "René Weber"
+    ],
+    "journal": "Preprint",
+    "year": "2022",
+    "url": "https://doi.org/10.33767/osf.io/upez3",
+    "doi": "10.33767/osf.io/upez3",
+    "tags": []
+  },
+  {
     "title": "Reproducing FSL's fMRI data analysis via Nipype: Relevance, challenges, and solutions",
     "authors": [
       "Yibei Chen",
