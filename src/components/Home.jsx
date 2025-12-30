@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageHelmet from './PageHelmet';
+import newsMd from '../data/news.md?raw';
+import { parseNewsMarkdown } from '../utils/parseNews';
 import { socialLinks } from '../data/socialLinks';
 
 function Home() {
@@ -99,6 +101,35 @@ function Home() {
                 Across every step, my goal has remained the same: to understand how people make sense of their worlds, and to build tools that help others explore those questions too.
               </p>
             </div>
+
+            {/* Latest News teaser */}
+            <section aria-labelledby="news-heading" className="mt-4">
+              <h2 id="news-heading" className="text-2xl font-semibold text-gray-900 font-serif mb-3">Latest News</h2>
+              <ul className="divide-y divide-gray-200 bg-white rounded-lg shadow-sm">
+                {(parseNewsMarkdown(newsMd)
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  .slice(0, 5))
+                  .map((item, idx) => (
+                  <li key={idx} className="p-3 text-sm text-gray-800">
+                    <span className="font-mono text-gray-600 mr-2">
+                      {(() => { const d=new Date(item.date); const mm=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0'); const yyyy=d.getFullYear(); return Number.isNaN(yyyy)? item.date : `${mm}/${dd}/${yyyy}`; })()}
+                    </span>
+                    <span>
+                      {item.text}
+                      {item.url && (
+                        <>
+                          {" "}
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-[#A31F34] hover:text-opacity-80 underline">link</a>
+                        </>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 text-right">
+                <Link to="/news" className="text-[#A31F34] hover:text-opacity-80 underline">See all news</Link>
+              </div>
+            </section>
 
             {/* Navigation Links: Removed pt-4 */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center md:justify-end mt-4 sm:mt-0">
