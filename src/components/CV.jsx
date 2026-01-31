@@ -3,7 +3,7 @@ import PageHelmet from './PageHelmet';
 
 function CV() {
   // Use the correct document ID
-  const DOC_ID = "15RFQpX4Y62YOQIHZLkjakTlXX4eFw40bQLiQVLNj2oY";
+  const DOC_ID = "1G3Db4IXZNZl0PTRIeqW-Zq937CR8r6thRJDIeOTd_Js";
   // Correct format for embedded viewing
   const EMBED_URL = `https://docs.google.com/document/d/${DOC_ID}/preview`;
 
