@@ -184,7 +184,6 @@ The overhead:
 
 About 3 extra seconds and some additional tokens. That's Claude reading the skill's reference material. In exchange, you avoid MoCo contamination that takes hours to debug, BABS crashes that waste a day of cluster allocation, and sidecar bloat that makes your dataset annoying to work with.
 
-I should be honest — these are single-run benchmarks across 3 test cases. This isn't a Nature paper. But the pattern is clear enough. The skill's value is concentrated in the gotchas that even a good LLM misses without specialized context.
 
 ## Try it
 
@@ -203,5 +202,7 @@ Or jump to a specific step:
 > Write me a heudiconv heuristic for my dataset. Here's my dicominfo.tsv: [paste or attach]
 
 > Generate a BABS config for fMRIPrep 24.1.1 with CIFTI output on a SLURM cluster.
+
+---
 
 Enjoy Science!
