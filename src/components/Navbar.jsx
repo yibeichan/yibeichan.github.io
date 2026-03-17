@@ -9,6 +9,7 @@ function Navbar() {
     { name: 'Research', url: '/research' },
     { name: 'Publications', url: '/publications' },
     { name: 'Software', url: '/softwares' },
+    { name: 'Blog', url: '/blog' },
     { name: 'CV', url: '/cv' },
     { name: 'Contact', url: '/contact' }
   ];
@@ -35,7 +36,7 @@ function Navbar() {
               <Link
                 key={index}
                 to={item.url}
-                className={`py-4 px-2 font-serif ${location.pathname === item.url ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
+                className={`py-4 px-2 font-serif ${(location.pathname === item.url || location.pathname.startsWith(item.url + '/')) ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
               >
                 {item.name}
               </Link>
@@ -64,7 +65,7 @@ function Navbar() {
           <Link
             key={index}
             to={item.url}
-            className={`block py-2 px-4 text-sm font-serif ${location.pathname === item.url ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
+            className={`block py-2 px-4 text-sm font-serif ${(location.pathname === item.url || location.pathname.startsWith(item.url + '/')) ? 'text-[#A31F34]' : 'text-[#8A8B8C] hover:text-[#A31F34]'} transition duration-300`}
             onClick={() => setIsOpen(false)}
           >
             {item.name}

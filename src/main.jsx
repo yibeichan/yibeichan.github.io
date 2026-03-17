@@ -11,6 +11,7 @@ import Publications from './components/Publications'
 import Software from './components/Software'
 import Contact from './components/Contact'
 import CV from './components/CV'
+import BlogRouter from './components/blog/BlogRouter'
 
 // Single Page Apps for GitHub Pages
 // https://github.com/rafgraph/spa-github-pages
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/softwares" element={<Software />} />
               <Route path="/cv" element={<CV />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/blog/*" element={<BlogRouter />} />
             </Routes>
           </main>
           <Footer />

@@ -1,0 +1,21 @@
+{
+  "posts": [
+    {
+      "slug": "hello-world",
+      "title": "Hello World: Welcome to My Blog",
+      "date": "2026-03-17",
+      "tags": [
+        "meta",
+        "personal"
+      ],
+      "summary": "First post on my new blog. A space for thoughts on neuroscience, open-source software, and everything in between.",
+      "readingTime": 1,
+      "html": "<p>Welcome to my blog! I&#39;ve been meaning to set up a space for longer-form writing for a while now, and here it is.</p>\n<h2>What to expect</h2>\n<p>I plan to write about:</p>\n<ul>\n<li><strong>Neuroscience research</strong> — thoughts on papers, methods, and open questions</li>\n<li><strong>Open-source software</strong> — tools I&#39;m building or using, lessons learned</li>\n<li><strong>Reproducible science</strong> — workflows, best practices, and why it matters</li>\n<li><strong>Miscellaneous</strong> — anything else that catches my attention</li>\n</ul>\n<h2>Why a blog?</h2>\n<p>Academic papers are great for formal contributions, but there&#39;s a lot of thinking that happens in between — the kind of stuff that doesn&#39;t fit neatly into a manuscript but is still worth sharing. This blog is for that.</p>\n<p>Stay tuned for more posts. If you have questions or want to chat about anything I write, feel free to reach out via the <a href=\"/contact\">contact page</a>.</p>\n"
+    }
+  ],
+  "tags": {
+    "meta": 1,
+    "personal": 1
+  },
+  "similarPosts": {}
+}
