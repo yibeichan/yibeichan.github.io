@@ -8,19 +8,12 @@ author: "claude"
 draft: false
 ---
 
-I had forty subjects of scan data. Months of planning, beautiful protocol, everything ready. I was going to do science.
 
-Three days later I was staring at a heudiconv traceback. I'd accidentally included Siemens MoCo series in my BIDS dataset. My fMRIPrep job died on the cluster because I forgot `--fs-license-file`. I couldn't remember my research question. That kind of week.
-
-So I built something.
-
-## The pipeline
-
-The DICOM→BIDS→fMRIPrep pipeline is not one tool. It's like five tools duct-taped together, and each one has its own way of punishing you.
+The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you formatting and preprocessing your dilligently collected fMRI data (starting with DICOMs).
 
 ### heudiconv
 
-You need a heuristic file to convert your DICOMs. To write that heuristic, you need to inspect `dicominfo.tsv`. To get `dicominfo.tsv`, you need to run heudiconv with `-c none`. To run heudiconv, you need to understand its CLI flags. It's circular. You're already tired.
+First you need a heuristic file to convert your DICOMs. To write that heuristic, you need to inspect `dicominfo.tsv`. To get `dicominfo.tsv`, you need to run heudiconv with `-c none`. To run heudiconv, you need to understand its CLI flags. It's circular. You're already tired.
 
 And then there's the Siemens MoCo thing. Siemens scanners produce motion-corrected duplicates of your BOLD series. If you don't filter them out with `is_motion_corrected`, you get twice the data you expected, and half of it is garbage. The garbage looks perfectly valid. It will silently contaminate your analysis. You won't know until much later. Or maybe you'll never know. That's the worst part.
 
@@ -42,7 +35,7 @@ The `TaskName` one. Every time. You have one task. It's called "rest." The valid
 
 ### fMRIPrep
 
-fMRIPrep is incredible software. Configuring it is not. Output spaces, CIFTI resolutions, thread counts, memory limits, FreeSurfer licensing, and the question of whether you set `--omp-nthreads` to one less than `--n_cpus` or not. Get one flag wrong and your 12-hour SLURM job dies at minute 3. I've done this more times than I'd like to admit.
+[fMRIPrep](https://fmriprep.org/en/stable/) is incredible software. Configuring it is not. Output spaces, CIFTI resolutions, thread counts, memory limits, FreeSurfer licensing, and the question of whether you set `--omp-nthreads` to one less than `--n_cpus` or not. Get one flag wrong and your 12-hour SLURM job dies at minute 3. I've done this more times than I'd like to admit.
 
 ### BABS
 
@@ -52,13 +45,11 @@ The section has to be called `input_datasets`, not `input_data`. The args go und
 
 ## The problem with asking Claude
 
-I've been using Claude Code for a lot of my research workflow. It's good at writing scripts. But when I asked it to generate a heudiconv heuristic, it produced something that *looked* right — correct function signatures, reasonable pattern matching — but it missed the MoCo filter entirely. The BABS config it wrote had the wrong YAML section names.
-
-These aren't bugs. They're the kind of things you only learn from experience. Or from reading source code that nobody reads. The knowledge lives in one person's head in each lab and gets passed down like oral tradition.
-
-I kept thinking about this. What if I could just... put that knowledge somewhere Claude could actually use it?
+I've been using Claude Code for a lot of my research workflow. It's good at writing scripts. But when I asked it to generate a heudiconv heuristic, it produced something that *looked* right — correct function signatures, reasonable pattern matching — but it missed certain sections entirely. The BABS config it wrote had the wrong YAML section names.
 
 So I built a [Claude Code skill](https://github.com/yibeichan/claude-skills) called `dicom2fmriprep`. It knows about Siemens MoCo series, the heudiconv two-pass workflow, `--minmeta`, `POPULATE_INTENDED_FOR_OPTS`, the exact BABS YAML schema, all the fMRIPrep flags you'll forget, the BIDS validation errors you'll hit. It doesn't just generate scripts. It asks about your data first, walks through the pipeline step by step, and explains why it's making each choice.
+
+And I'm showing a little experiment on this task using `Claude Code` **with skill** and **without skill**.
 
 ## What it generates
 
@@ -103,8 +94,6 @@ That `is_motion_corrected or s.is_derived` check. This is the single most import
 No `{session}` in the BIDS paths. Sounds trivial. But the without-skill version included `{session}` placeholders everywhere, which creates unnecessary directory nesting and can confuse downstream tools.
 
 ### The BABS config
-
-Full YAML. I'm showing all of it because every section matters:
 
 ```yaml
 input_datasets:
@@ -215,10 +204,4 @@ Or jump to a specific step:
 
 > Generate a BABS config for fMRIPrep 24.1.1 with CIFTI output on a SLURM cluster.
 
-## What's next
-
-Right now it handles the most common Siemens single-session workflow. I'm planning GE and Philips support (different scanners, different problems), multi-session and multi-echo evaluations, anat-only workflows, and more eval scenarios.
-
-If you've got a pipeline gotcha that caught you off guard, it probably belongs in the skill. The code is at [github.com/yibeichan/claude-skills](https://github.com/yibeichan/claude-skills).
-
-I built this because I got tired of the pipeline being a barrier to the science. The preprocessing step shouldn't be the thing that breaks you. If this saves you one afternoon of debugging MoCo duplicates or BABS YAML typos, then good. Go do your research.
+Enjoy Science!
