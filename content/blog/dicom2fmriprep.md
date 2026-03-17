@@ -8,6 +8,7 @@ author: "claude"
 draft: false
 ---
 
+New skill for fMRI data preprocessing: [dicom2fmriprep](https://github.com/yibeichan/claude-skills?tab=readme-ov-file#available-skills)
 
 The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).
 
