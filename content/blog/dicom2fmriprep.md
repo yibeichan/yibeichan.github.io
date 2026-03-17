@@ -9,7 +9,7 @@ draft: false
 ---
 
 
-The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you formatting and preprocessing your dilligently collected fMRI data (starting with DICOMs).
+The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).
 
 ### heudiconv
 
