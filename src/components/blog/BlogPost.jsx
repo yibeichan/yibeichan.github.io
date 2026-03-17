@@ -37,6 +37,12 @@ export default function BlogPost() {
             {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             <span className="mx-2">·</span>
             {post.readingTime} min read
+            {post.shoulderline && (
+              <>
+                <span className="mx-2">·</span>
+                <span className="italic">{post.shoulderline}</span>
+              </>
+            )}
           </div>
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">

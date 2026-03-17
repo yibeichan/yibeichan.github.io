@@ -27,6 +27,12 @@ export default function BlogPostCard({ post }) {
         {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         <span className="mx-2">·</span>
         {post.readingTime} min read
+        {post.shoulderline && (
+          <>
+            <span className="mx-2">·</span>
+            <span className="italic">{post.shoulderline}</span>
+          </>
+        )}
       </div>
 
       {post.summary && (
