@@ -9,7 +9,7 @@
     "build-blog": "node scripts/buildBlogIndex.js",
     "preview": "vite preview",
     "fetch-publications": "node scripts/fetchPublications.js",
-    "postbuild": "node scripts/buildSitemap.js"
+    "postbuild": "node scripts/buildSitemap.js && node scripts/buildLlmsTxt.js && node scripts/buildFeed.js && node scripts/buildStaticBlogPages.js"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",

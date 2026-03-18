@@ -24,6 +24,7 @@ export default function BlogPost() {
         title={post.title}
         description={post.summary}
         path={`/blog/${post.slug}`}
+        ogType="article"
       />
 
       <Link to="/blog" className="text-sm text-[#A31F34] hover:text-opacity-80 mb-6 inline-block">

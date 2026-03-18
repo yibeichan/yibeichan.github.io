@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 const SITE_URL = 'https://yibeichen.me';
 const DEFAULT_IMAGE = `${SITE_URL}/images/headshot.jpg`;
 
-export default function PageHelmet({ title, description, path = '/', image = DEFAULT_IMAGE }) {
+export default function PageHelmet({ title, description, path = '/', image = DEFAULT_IMAGE, ogType = 'website' }) {
   const fullTitle = `${title} | Yibei Chen`;
   const canonical = `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 
@@ -14,7 +14,7 @@ export default function PageHelmet({ title, description, path = '/', image = DEF
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph */}
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content="Yibei Chen" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
