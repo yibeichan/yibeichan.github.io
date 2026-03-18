@@ -104,21 +104,27 @@ function Home() {
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center md:justify-end mt-4 sm:mt-0">
               <Link
                 to="/research"
-                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg hover:bg-opacity-90 transition-colors"
+                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg shadow-sm hover:bg-opacity-90 transition-colors"
               >
                 Research
               </Link>
               <Link
                 to="/publications"
-                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg hover:bg-opacity-90 transition-colors"
+                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg shadow-sm hover:bg-opacity-90 transition-colors"
               >
                 Publications
               </Link>
               <Link
                 to="/softwares"
-                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg hover:bg-opacity-90 transition-colors"
+                className="w-full sm:w-auto text-center px-6 py-2 bg-[#A31F34] text-white rounded-lg shadow-sm hover:bg-opacity-90 transition-colors"
               >
                 Software
+              </Link>
+              <Link
+                to="/blog"
+                className="w-full sm:w-auto text-center px-6 py-2 bg-white text-[#A31F34] rounded-lg shadow-sm hover:bg-opacity-90 transition-colors"
+              >
+                Blog
               </Link>
             </div>
           </div>
