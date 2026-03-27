@@ -8,6 +8,7 @@ function Navbar() {
   const navItems = [
     { name: 'Research', url: '/research' },
     { name: 'Publications', url: '/publications' },
+    { name: 'News', url: '/news' },
     { name: 'Software', url: '/softwares' },
     { name: 'Blog', url: '/blog' },
     { name: 'CV', url: '/cv' },
