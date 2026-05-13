@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Random Seeds</title>
+  <subtitle>Blog by Yibei Chen</subtitle>
+  <link href="https://yibeichen.me/feed.xml" rel="self" />
+  <link href="https://yibeichen.me/" rel="alternate" />
+  <id>https://yibeichen.me/</id>
+  <updated>2026-03-17T00:00:00.000Z</updated>
+  <author>
+    <name>Yibei Chen</name>
+  </author>
+  <entry>
+    <title>From DICOMs to fMRIPrep in One Conversation</title>
+    <link href="https://yibeichen.me/blog/dicom2fmriprep" rel="alternate" />
+    <id>https://yibeichen.me/blog/dicom2fmriprep</id>
+    <updated>2026-03-17T00:00:00.000Z</updated>
+    <summary>The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).</summary>
+    <content type="html"><![CDATA[<p>New skill for fMRI data preprocessing: <a href="https://github.com/yibeichan/claude-skills?tab=readme-ov-file#available-skills">dicom2fmriprep</a></p>
+<p>The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).</p>
+<h3>heudiconv</h3>
+<p>First you need a heuristic file to convert your DICOMs. To write that heuristic, you need to inspect <code>dicominfo.tsv</code>. To get <code>dicominfo.tsv</code>, you need to run heudiconv with <code>-c none</code>. To run heudiconv, you need to understand its CLI flags. It&#39;s circular. You&#39;re already tired.</p>
+<p>And then there&#39;s the Siemens MoCo thing. Siemens scanners produce motion-corrected duplicates of your BOLD series. If you don&#39;t filter them out with <code>is_motion_corrected</code>, you get twice the data you expected, and half of it is garbage. The garbage looks perfectly valid. It will silently contaminate your analysis. You won&#39;t know until much later. Or maybe you&#39;ll never know. That&#39;s the worst part.</p>
+<p>Oh, and if you forgot <code>--minmeta</code>, your JSON sidecars are now 500 lines of Siemens private headers. Fun.</p>
+<p>Writing a good heuristic looks simple in the docs. It takes an entire afternoon in practice. Sometimes two.</p>
+<h3>BIDS validation</h3>
+<p>You finally have NIfTIs. You run the validator. It screams:</p>
+<pre><code>[ERR] func/sub-S001_task-rest_bold.json: TaskName is not defined
+[ERR] fmap/sub-S001_dir-AP_epi.json: IntendedFor field is missing
+[WARN] .DS_Store is not part of the BIDS specification
+</code></pre>
+<p>The <code>TaskName</code> one. Every time. You have one task. It&#39;s called &quot;rest.&quot; The validator knows it&#39;s called &quot;rest&quot; because it&#39;s in the filename. But the JSON sidecar doesn&#39;t say <code>&quot;TaskName&quot;: &quot;rest&quot;</code>, so we all have to suffer. Why is this still a thing?</p>
+<h3>fMRIPrep</h3>
+<p><a href="https://fmriprep.org/en/stable/">fMRIPrep</a> is incredible software. Configuring it is not. Output spaces, CIFTI resolutions, thread counts, memory limits, FreeSurfer licensing, and the question of whether you set <code>--omp-nthreads</code> to one less than <code>--n_cpus</code> or not. Get one flag wrong and your 12-hour SLURM job dies at minute 3. I&#39;ve done this more times than I&#39;d like to admit.</p>
+<h3>BABS</h3>
+<p>If you&#39;re running fMRIPrep at scale, you&#39;re probably using <a href="https://pennlinc.github.io/babs/">BABS</a>. BABS handles DataLad integration, container management, job submission. It&#39;s great. But its YAML schema is strict. Not &quot;we&#39;ll warn you&quot; strict. It just crashes. The traceback tells you nothing about which key is wrong.</p>
+<p>The section has to be called <code>input_datasets</code>, not <code>input_data</code>. The args go under <code>bids_app_args</code>, not <code>container_args</code>. You need <code>$SUBJECT_SELECTION_FLAG</code> and <code>$BABS_TMPDIR</code> in exactly the right places. None of this is well-documented. You learn it from someone who&#39;s already been through it, or you learn it the hard way.</p>
+<h2>The problem with asking Claude</h2>
+<p>I&#39;ve been using Claude Code for a lot of my research workflow. It&#39;s good at writing scripts. But when I asked it to generate a heudiconv heuristic, it produced something that <em>looked</em> right — correct function signatures, reasonable pattern matching — but it missed certain sections entirely. The BABS config it wrote had the wrong YAML section names.</p>
+<p>So I built a <a href="https://github.com/yibeichan/claude-skills">Claude Code skill</a> called <code>dicom2fmriprep</code>. It knows about Siemens MoCo series, the heudiconv two-pass workflow, <code>--minmeta</code>, <code>POPULATE_INTENDED_FOR_OPTS</code>, the exact BABS YAML schema, all the fMRIPrep flags you&#39;ll forget, the BIDS validation errors you&#39;ll hit. It doesn&#39;t just generate scripts. It asks about your data first, walks through the pipeline step by step, and explains why it&#39;s making each choice.</p>
+<p>And I&#39;m showing a little experiment on this task using <code>Claude Code</code> <strong>with skill</strong> and <strong>without skill</strong>.</p>
+<h2>What it generates</h2>
+<p>Real outputs from evaluation runs. I want to show these because the details matter.</p>
+<h3>The heudiconv heuristic</h3>
+<p>For a Siemens dataset with T1w MPRAGE, resting-state fMRI, and AP/PA fieldmaps:</p>
+<pre><code class="language-python">POPULATE_INTENDED_FOR_OPTS = {
+    &#39;matching_parameters&#39;: [&#39;ImagingVolume&#39;, &#39;Shims&#39;],
+    &#39;criterion&#39;: &#39;Closest&#39;
+}
+
+def infotodict(seqinfo):
+    # Single-session study — no {session} in templates
+    t1w = create_key(&#39;sub-{subject}/anat/sub-{subject}_T1w&#39;)
+    func_rest = create_key(
+        &#39;sub-{subject}/func/sub-{subject}_task-rest_run-{item:02d}_bold&#39;
+    )
+    fmap_ap = create_key(&#39;sub-{subject}/fmap/sub-{subject}_dir-AP_epi&#39;)
+    fmap_pa = create_key(&#39;sub-{subject}/fmap/sub-{subject}_dir-PA_epi&#39;)
+
+    info = {t1w: [], func_rest: [], fmap_ap: [], fmap_pa: []}
+
+    for s in seqinfo:
+        # ---- Skip motion-corrected and derived reconstructions ----
+        if s.is_motion_corrected or s.is_derived:
+            continue
+
+        protocol = s.protocol_name.lower()
+        # ... pattern matching for each modality ...
+</code></pre>
+<p>A few things worth noting.</p>
+<p>That <code>is_motion_corrected or s.is_derived</code> check. This is the single most important thing in the whole file. Without it, Siemens data will have duplicate BOLD series that look valid but are the scanner&#39;s online motion correction output. The without-skill version didn&#39;t have this filter at all. At all.</p>
+<p><code>POPULATE_INTENDED_FOR_OPTS</code> with <code>ImagingVolume</code> and <code>Shims</code> matching. This tells heudiconv to automatically set <code>IntendedFor</code> in your fieldmap sidecars, matching fieldmaps to BOLD runs based on volume overlap and shim settings. The without-skill version used <code>ModalityAcquisitionLabel</code>, which is less specific and can mislink fieldmaps in multi-run protocols.</p>
+<p>No <code>{session}</code> in the BIDS paths. Sounds trivial. But the without-skill version included <code>{session}</code> placeholders everywhere, which creates unnecessary directory nesting and can confuse downstream tools.</p>
+<h3>The BABS config</h3>
+<pre><code class="language-yaml">input_datasets:
+    BIDS:
+        required_files:
+            - &quot;func/*_bold.nii*&quot;
+            - &quot;anat/*_T1w.nii*&quot;
+        is_zipped: false
+        origin_url: &quot;/project/data/bids_datalad&quot;
+        path_in_babs: inputs/data/BIDS
+
+cluster_resources:
+    interpreting_shell: &quot;/bin/bash&quot;
+    hard_memory_limit: 32G
+    temporary_disk_space: 200G
+    number_of_cpus: &quot;8&quot;
+    hard_runtime_limit: &quot;24:00:00&quot;
+    customized_text: |
+        #SBATCH -p normal
+        #SBATCH --nodes=1
+        #SBATCH --ntasks=1
+        #SBATCH --propagate=NONE
+
+script_preamble: |
+    source &quot;${CONDA_PREFIX}&quot;/bin/activate babs
+    module load singularity/3.8
+    export TEMPLATEFLOW_HOME=/scratch/${USER}/templateflow
+
+job_compute_space: &quot;/scratch/${USER}/babs_tmp&quot;
+
+singularity_args:
+    - --cleanenv
+
+bids_app_args:
+    $SUBJECT_SELECTION_FLAG: &quot;--participant-label&quot;
+    -w: &quot;$BABS_TMPDIR&quot;
+    --fs-license-file: &quot;/path/to/freesurfer/license.txt&quot;
+    --output-spaces: &quot;MNI152NLin2009cAsym:res-2&quot;
+    --cifti-output: &quot;91k&quot;
+    --force-bbr: &quot;&quot;
+    --n_cpus: &quot;8&quot;
+    --omp-nthreads: &quot;7&quot;
+    --mem-mb: &quot;30000&quot;
+    --skip-bids-validation: &quot;&quot;
+    --notrack: &quot;&quot;
+
+zip_foldernames:
+    fmriprep: &quot;24-1-1&quot;
+    freesurfer: &quot;24-1-1&quot;
+
+alert_log_messages:
+    stdout:
+        - &quot;fMRIPrep failed&quot;
+        - &quot;Cannot allocate memory&quot;
+        - &quot;Excessive topologic defect encountered&quot;
+        - &quot;mris_curvature_stats: Could not open file&quot;
+        - &quot;Numerical result out of range&quot;
+        - &quot;No such file or directory&quot;
+</code></pre>
+<p>If you&#39;ve wrestled with BABS configs before, you&#39;ll notice the details. <code>$SUBJECT_SELECTION_FLAG</code> and <code>$BABS_TMPDIR</code> are BABS-specific variables interpolated at runtime — miss these and BABS can&#39;t parallelize across subjects. The <code>alert_log_messages</code> are stdout patterns BABS watches for to detect failures. &quot;Cannot allocate memory&quot; and &quot;Excessive topologic defect encountered&quot; are the ones that save you from wasting cluster hours. <code>zip_foldernames</code> version string (<code>24-1-1</code>) has to match your container. <code>--omp-nthreads: &quot;7&quot;</code> with <code>--n_cpus: &quot;8&quot;</code> — always one less, leaving a thread for orchestration.</p>
+<p>The without-skill version didn&#39;t use the correct BABS YAML section names. The config would crash on <code>babs init</code>. You&#39;d spend an hour figuring out why.</p>
+<h3>BIDS validation fixes</h3>
+<p>Both with-skill and without-skill handled BIDS fixes fine. Adding <code>TaskName</code> to functional sidecars, setting <code>IntendedFor</code> in fieldmap JSONs, removing <code>.DS_Store</code>. This makes sense — patching JSON files is just file manipulation. No deep domain knowledge required.</p>
+<p>I actually think this is interesting. It shows exactly where the skill adds value and where it doesn&#39;t. Simple file manipulation? Claude already knows how to do that. Domain-specific gotchas that live in one person&#39;s head? That&#39;s where it falls apart without help.</p>
+<h2>The numbers</h2>
+<p>Three evaluations, each testing a different pipeline stage:</p>
+<table>
+<thead>
+<tr>
+<th>Eval</th>
+<th>With Skill</th>
+<th>Without Skill</th>
+<th>What the skill caught</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>heudiconv heuristic</td>
+<td>8/8 (100%)</td>
+<td>6/8 (75%)</td>
+<td>MoCo filtering, <code>--minmeta</code></td>
+</tr>
+<tr>
+<td>BABS setup</td>
+<td>10/10 (100%)</td>
+<td>7/10 (70%)</td>
+<td>YAML schema, container setup</td>
+</tr>
+<tr>
+<td>BIDS fix</td>
+<td>5/5 (100%)</td>
+<td>5/5 (100%)</td>
+<td>— (both nailed it)</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>23/23 (100%)</strong></td>
+<td><strong>18/23 (78%)</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>The overhead:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>With Skill</th>
+<th>Without Skill</th>
+<th>Delta</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Avg tokens</td>
+<td>28,766</td>
+<td>17,140</td>
+<td>+11,626 (~1.7x)</td>
+</tr>
+<tr>
+<td>Avg time</td>
+<td>101.8s</td>
+<td>98.7s</td>
+<td>+3.1s</td>
+</tr>
+</tbody></table>
+<p>About 3 extra seconds and some additional tokens. That&#39;s Claude reading the skill&#39;s reference material. In exchange, you avoid MoCo contamination that takes hours to debug, BABS crashes that waste a day of cluster allocation, and sidecar bloat that makes your dataset annoying to work with.</p>
+<h2>Try it</h2>
+<pre><code class="language-bash">npx @yibeichen/claude-skills install dicom2fmriprep
+</code></pre>
+<p>You can say something like:</p>
+<blockquote>
+<p>I have Siemens DICOM data from a resting-state study with T1w, BOLD, and AP/PA fieldmaps. Help me set up the full pipeline from DICOMs to fMRIPrep on our SLURM cluster.</p>
+</blockquote>
+<p>It&#39;ll ask about your data — scanner manufacturer, protocol names, number of sessions, cluster setup — before generating anything.</p>
+<p>Or jump to a specific step:</p>
+<blockquote>
+<p>Write me a heudiconv heuristic for my dataset. Here&#39;s my dicominfo.tsv: [paste or attach]</p>
+</blockquote>
+<blockquote>
+<p>Generate a BABS config for fMRIPrep 24.1.1 with CIFTI output on a SLURM cluster.</p>
+</blockquote>
+<hr>
+<p>Enjoy Science!</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hello World: Welcome to My Blog</title>
+    <link href="https://yibeichen.me/blog/hello-world" rel="alternate" />
+    <id>https://yibeichen.me/blog/hello-world</id>
+    <updated>2026-03-17T00:00:00.000Z</updated>
+    <summary>First post on my new blog. A space for thoughts on neuroscience, open-source software, and everything in between.</summary>
+    <content type="html"><![CDATA[<p>Welcome to my blog! I&#39;ve been meaning to set up a space for longer-form writing for a while now, and here it is.</p>
+<h2>What to expect</h2>
+<p>I plan to write about:</p>
+<ul>
+<li><strong>Neuroscience research</strong> — thoughts on papers, methods, and open questions</li>
+<li><strong>Open-source software</strong> — tools I&#39;m building or using, lessons learned</li>
+<li><strong>Reproducible science</strong> — workflows, best practices, and why it matters</li>
+<li><strong>Miscellaneous</strong> — anything else that catches my attention</li>
+</ul>
+<h2>Why a blog?</h2>
+<p>Academic papers are great for formal contributions, but there&#39;s a lot of thinking that happens in between — the kind of stuff that doesn&#39;t fit neatly into a manuscript but is still worth sharing. This blog is for that.</p>
+<p>Stay tuned for more posts. If you have questions or want to chat about anything I write, feel free to reach out via the <a href="/contact">contact page</a>.</p>
+]]></content>
+  </entry>
+</feed>

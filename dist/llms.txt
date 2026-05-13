@@ -1,0 +1,16 @@
+# Yibei Chen
+
+> Researcher working on neuroimaging, reproducibility, and open-source scientific software.
+
+## Blog: Random Seeds
+
+- [From DICOMs to fMRIPrep in One Conversation](https://yibeichen.me/blog/dicom2fmriprep): The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).
+- [Hello World: Welcome to My Blog](https://yibeichen.me/blog/hello-world): First post on my new blog. A space for thoughts on neuroscience, open-source software, and everything in between.
+
+## Links
+
+- [Research](https://yibeichen.me/research)
+- [Publications](https://yibeichen.me/publications)
+- [Software](https://yibeichen.me/softwares)
+- [GitHub](https://github.com/yibeichan)
+- [Google Scholar](https://scholar.google.com/citations?user=TnalNNUAAAAJ&hl=en)
