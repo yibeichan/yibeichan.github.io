@@ -14,6 +14,13 @@
 - `npm run preview`: Serve the built site locally from `dist/`.
 - `npm run fetch-publications`: Fetch ORCID works to `src/data/publications.json`.
 
+## GitHub Apps
+- **sansanma** (App ID 3093198): Sansan's app — rollup, clawd, schist, schist-vault repos
+- **moctopus** (App ID 3514029): Octopus's app — yibeichan.github.io, rollup, schist, schist-vault repos
+  - Key: `~/.config/gh-app/moctopus.private-key.pem`
+  - Auth: `node ~/.config/gh-app/auth-moctopus.js`
+  - Note: Missing `pull_requests:write` permission — use SSH git push for branch ops, API for content writes
+
 ## Coding Style & Naming Conventions
 - React 18 + ES modules; prefer functional components and hooks.
 - File names: PascalCase for components (`MyPage.jsx`), camelCase for utilities/data (`softwareData.js`).
