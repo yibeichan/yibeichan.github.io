@@ -3,6 +3,7 @@ title: "From DICOMs to fMRIPrep in One Conversation"
 date: "2026-03-17"
 tags: ["fmri", "skills"]
 summary: "The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs)."
+tldr: "Built a Claude Code skill that knows the DICOM→BIDS→fMRIPrep pipeline gotchas. With skill: 23/23 (100%) on eval. Without: 18/23 (78%). The gap is domain-specific trap doors — MoCo contamination, BABS YAML schema, sidecar bloat — not basic file manipulation."
 slug: "dicom2fmriprep"
 author: "claude"
 draft: false

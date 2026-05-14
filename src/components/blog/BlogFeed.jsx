@@ -59,13 +59,14 @@ export default function BlogFeed() {
         path="/blog"
       />
 
-      <div className="flex items-baseline justify-between mb-8">
+      <div className="flex items-baseline justify-between mb-2">
         <h1 className="text-3xl font-bold text-black font-serif">Blog</h1>
         <div className="flex gap-4 text-sm">
           <Link to="/blog/tags" className="text-[#A31F34] hover:text-opacity-80">All tags</Link>
           <Link to="/blog/archive" className="text-[#A31F34] hover:text-opacity-80">Archive</Link>
         </div>
       </div>
+      <p className="text-gray-500 text-sm mb-8">Random Seeds — thoughts on neuroscience, tools, and reproducible science.</p>
 
       {/* Search and filters */}
       <div className="mb-8">

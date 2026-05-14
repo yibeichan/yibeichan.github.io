@@ -58,6 +58,12 @@ export default function BlogPost() {
               ))}
             </div>
           )}
+          {post.tldr && (
+            <div className="mt-6 bg-gray-50 border-l-4 border-[#A31F34] rounded-r-lg px-5 py-4">
+              <p className="text-sm font-semibold text-[#A31F34] uppercase tracking-wider mb-1">TL;DR</p>
+              <p className="text-gray-700 leading-relaxed">{post.tldr}</p>
+            </div>
+          )}
         </header>
 
         <div
