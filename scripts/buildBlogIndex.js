@@ -41,6 +41,7 @@ async function buildBlogIndex() {
       date: frontmatter.date,
       tags: frontmatter.tags || [],
       summary: frontmatter.summary || '',
+      tldr: frontmatter.tldr || '',
       shoulderline: frontmatter.author === 'claude' ? 'written with claude' : 'written by yibei',
       readingTime,
       html,
