@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PageHelmet from './PageHelmet';
+import News from './News';
 import { socialLinks } from '../data/socialLinks';
 
 function Home() {
@@ -100,7 +101,12 @@ function Home() {
               </p>
             </div>
 
-            {/* Navigation Links: Removed pt-4 */}
+            {/* Latest News */}
+            <div className="mt-6">
+              <News limit={3} />
+            </div>
+
+            {/* Navigation Links */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center md:justify-end mt-4 sm:mt-0">
               <Link
                 to="/research"
