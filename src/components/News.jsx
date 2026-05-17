@@ -5,7 +5,9 @@ import { parseNewsMarkdown, sortNews } from '../utils/parseNews';
 
 function formatDate(isoDate) {
   try {
-    return new Date(isoDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    // Parse as UTC to avoid timezone shift (ISO date-only strings)
+    const [y, m] = isoDate.split('-').map(Number);
+    return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' });
   } catch {
     return isoDate;
   }
