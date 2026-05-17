@@ -38,6 +38,7 @@ export default function News({ limit }) {
             <div className="flex-1 text-gray-800 text-sm sm:text-base">
               <span dangerouslySetInnerHTML={{
                 __html: item.text
+                  .replace(/\*([^*]+)\*/g, '<em>$1</em>')
                   .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#A31F34] hover:underline">$1</a>')
               }} />
               {isNew(item.date) && (
