@@ -85,7 +85,7 @@ Error generating stack: `+o.message+`
 <p>The README links all three. So does the CITATION.cff file, which also links to the paper itself.</p>
 <p>The result is what I think of as an artifact cluster: paper, code, data, and metadata, each in the right place, all pointing to each other.</p>
 <h2>The tag that matters</h2>
-<p>The most important commit in the repo is <code>v1.0-published</code>. It marks the exact codebase that produced the published results. Not the latest commit. Not a zip file from the submission system. The same commit you would get if you checked out that tag today, three years from now, or whenever someone wants to verify the results.</p>
+<p>The most important commit in the repo is <code>v1.0-published</code>. It marks the exact codebase that produced the published results. If you check out that tag today, or three years from now, you get the same code.</p>
 <p>Zenodo points to this tag. The paper cites this tag. The OSF data archive references the commit SHA. If someone finds a bug in a later version, they can always go back to what was actually published.</p>
 <p>This is not the same as &quot;the repo is maintained.&quot; The tag holds the published version steady so the main branch can keep evolving.</p>
 <h2>The AGENTS.md file</h2>
@@ -95,7 +95,7 @@ Error generating stack: `+o.message+`
 <h2>Why this matters</h2>
 <p>The standard workflow for research code is: write it, submit it, archive a zip, move on.</p>
 <p>The problem with that workflow is that nobody actually reproduces results from a zip file. What they do is: find the repo, clone it, try to run it, discover missing dependencies, file an issue, and give up. The zip file satisfies a journal requirement. The repo does the actual work of enabling reuse.</p>
-<p>By treating the repository as a first-class artifact — with its own DOI, its own data archive, its own conventions for versioning and AI access — we made it possible for someone to actually use this work. Not just cite it.</p>
+<p>By treating the repository as a first-class artifact — with its own DOI, its own data archive, its own conventions for versioning and AI access — we built something people can use, not just cite.</p>
 <p>The paper is the argument. The repo is the evidence. The data is the raw material. All three should outlast the postdoc who wrote them.</p>
 <h2>What I would do differently</h2>
 <p>Nothing major. But if I were starting over, I would:</p>
@@ -106,9 +106,9 @@ Error generating stack: `+o.message+`
 </ul>
 <p>These are small changes. The cost of each is measured in hours. The benefit is measured in the lifetime of the research.</p>
 <h2>The broader idea</h2>
-<p>A paper should not be the end of a research project. It should be the start of its useful life.</p>
+<p>A paper is the start of a research project&#39;s useful life, not the end of it.</p>
 <p>The audience for a paper is small — the handful of people in your subfield who read it. The audience for a working repo with data, documentation, and a CI badge is much larger. It includes researchers in adjacent fields, students learning the methods, and people who would never find your paper but will find your code when they search for &quot;HMM fMRI narrative.&quot;</p>
-<p>The difference between a project that ends with a paper and one that continues after publication is not a difference in funding or resources. It is a difference in how you think about what you are leaving behind.</p>
+<p>A project that ends with a paper and one that continues after publication differ in one thing: how you think about what you are leaving behind.</p>
 <p>PrettyMouth is one example. The same pattern works for any project. A tag. A DOI. A README that links everything together. An AGENTS.md if you want to be early on something. None of it is hard. You just have to decide that publishing is not the last thing you do with your research.</p>
 `},{slug:"dicom2fmriprep",title:"From DICOMs to fMRIPrep in One Conversation",date:"2026-03-17",tags:["fmri","skills"],summary:"The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).",tldr:"Built a Claude Code skill that knows the DICOM→BIDS→fMRIPrep pipeline gotchas. With skill: 23/23 (100%) on eval. Without: 18/23 (78%). The gap is domain-specific trap doors — MoCo contamination, BABS YAML schema, sidecar bloat — not basic file manipulation.",shoulderline:"written with claude",readingTime:7,html:`<p>New skill for fMRI data preprocessing: <a href="https://github.com/yibeichan/claude-skills?tab=readme-ov-file#available-skills">dicom2fmriprep</a></p>
 <p>The DICOM→BIDS→fMRIPrep pipeline has like five tools duct-taped together to help you format and preprocess your dilligently collected fMRI data (freshly minted DICOMs).</p>

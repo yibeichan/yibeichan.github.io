@@ -38,7 +38,7 @@ The result is what I think of as an artifact cluster: paper, code, data, and met
 
 ## The tag that matters
 
-The most important commit in the repo is `v1.0-published`. It marks the exact codebase that produced the published results. Not the latest commit. Not a zip file from the submission system. The same commit you would get if you checked out that tag today, three years from now, or whenever someone wants to verify the results.
+The most important commit in the repo is `v1.0-published`. It marks the exact codebase that produced the published results. If you check out that tag today, or three years from now, you get the same code.
 
 Zenodo points to this tag. The paper cites this tag. The OSF data archive references the commit SHA. If someone finds a bug in a later version, they can always go back to what was actually published.
 
@@ -58,7 +58,7 @@ The standard workflow for research code is: write it, submit it, archive a zip, 
 
 The problem with that workflow is that nobody actually reproduces results from a zip file. What they do is: find the repo, clone it, try to run it, discover missing dependencies, file an issue, and give up. The zip file satisfies a journal requirement. The repo does the actual work of enabling reuse.
 
-By treating the repository as a first-class artifact — with its own DOI, its own data archive, its own conventions for versioning and AI access — we made it possible for someone to actually use this work. Not just cite it.
+By treating the repository as a first-class artifact — with its own DOI, its own data archive, its own conventions for versioning and AI access — we built something people can use, not just cite.
 
 The paper is the argument. The repo is the evidence. The data is the raw material. All three should outlast the postdoc who wrote them.
 
@@ -74,10 +74,10 @@ These are small changes. The cost of each is measured in hours. The benefit is m
 
 ## The broader idea
 
-A paper should not be the end of a research project. It should be the start of its useful life.
+A paper is the start of a research project's useful life, not the end of it.
 
 The audience for a paper is small — the handful of people in your subfield who read it. The audience for a working repo with data, documentation, and a CI badge is much larger. It includes researchers in adjacent fields, students learning the methods, and people who would never find your paper but will find your code when they search for "HMM fMRI narrative."
 
-The difference between a project that ends with a paper and one that continues after publication is not a difference in funding or resources. It is a difference in how you think about what you are leaving behind.
+A project that ends with a paper and one that continues after publication differ in one thing: how you think about what you are leaving behind.
 
 PrettyMouth is one example. The same pattern works for any project. A tag. A DOI. A README that links everything together. An AGENTS.md if you want to be early on something. None of it is hard. You just have to decide that publishing is not the last thing you do with your research.
