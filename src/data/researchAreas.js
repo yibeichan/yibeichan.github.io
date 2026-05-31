@@ -89,13 +89,13 @@ export const researchAreas = [
     id: "reproducibility",
     title: "Research Methods & Reproducibility",
     description:
-      "Good science needs good infrastructure. I build open-source tools that standardize data collection, analysis, and sharing — making research more transparent and reproducible across labs and disciplines.",
+      "Good science needs good infrastructure. I build open-source tools that standardize data collection, analysis, and sharing across labs and disciplines.",
     projects: [
       {
         id: "reproschema",
         title: "ReproSchema Framework",
         oneliner:
-          "Machine-readable survey schemas that travel from data collection to analysis without loss.",
+          "Machine-readable survey schemas that carry through from data collection to analysis.",
         description:
           "A machine-readable schema for standardizing survey data collection across research domains. Includes automated validation, multilingual support, and interoperability with existing tools.",
         image:

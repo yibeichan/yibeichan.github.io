@@ -285,10 +285,9 @@ function Research() {
             Research
           </h1>
           <p className="max-w-2xl text-xl leading-relaxed text-gray-300">
-            I study how the brain makes sense of the world — during stories,
-            games, and real-life experiences. Every project ships more than a
-            paper: code, data, and documentation that keep the science alive
-            after publication.
+            I study how the brain processes stories, games, and real-life
+            experiences. Every project includes more than a paper: code, data,
+            and documentation that let others use what we built.
           </p>
 
           {/* ─── Stats Strip ─── */}
