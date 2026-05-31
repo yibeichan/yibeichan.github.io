@@ -73,7 +73,7 @@ export const researchAreas = [
           "Preregistered movie-fMRI analyses revealing altered visual feature encoding in the posterior superior temporal sulcus (pSTS) in autism, using naturalistic movie-watching paradigms.",
         image:
           "https://www.biorxiv.org/content/biorxiv/early/2025/04/06/2025.04.05.647323/F2.large.jpg?width=800&height=600&carousel=1",
-        status: "in-progress",
+        status: "live",
         tags: ["Autism", "Naturalistic fMRI", "Visual Processing"],
         artifacts: {
           paper: {
@@ -213,6 +213,6 @@ export const statusConfig = {
     label: "In Progress",
     color: "bg-blue-100 text-blue-800",
     dot: "bg-blue-400",
-    description: "Work in progress — preprint or ongoing analysis",
+    description: "Ongoing work — analysis, writing, or data collection in progress",
   },
 };
