@@ -11,6 +11,7 @@ import Publications from './components/Publications'
 import Software from './components/Software'
 import Contact from './components/Contact'
 import CV from './components/CV'
+import News from './components/News'
 import BlogRouter from './components/blog/BlogRouter'
 
 // Single Page Apps for GitHub Pages
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/cv" element={<CV />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog/*" element={<BlogRouter />} />
+              <Route path="/news" element={<News />} />
             </Routes>
           </main>
           <Footer />

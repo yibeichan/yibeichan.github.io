@@ -10,6 +10,7 @@ function Navbar() {
     { name: 'Publications', url: '/publications' },
     { name: 'Software', url: '/softwares' },
     { name: 'Blog', url: '/blog' },
+    { name: 'News', url: '/news' },
     { name: 'CV', url: '/cv' },
     { name: 'Contact', url: '/contact' }
   ];
