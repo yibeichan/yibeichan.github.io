@@ -5,10 +5,62 @@
   <link href="https://yibeichen.me/feed.xml" rel="self" />
   <link href="https://yibeichen.me/" rel="alternate" />
   <id>https://yibeichen.me/</id>
-  <updated>2026-03-17T00:00:00.000Z</updated>
+  <updated>2026-05-30T00:00:00.000Z</updated>
   <author>
     <name>Yibei Chen</name>
   </author>
+  <entry>
+    <title>Publishing is the start, not the end</title>
+    <link href="https://yibeichen.me/blog/prettymouth-live-repo" rel="alternate" />
+    <id>https://yibeichen.me/blog/prettymouth-live-repo</id>
+    <updated>2026-05-30T00:00:00.000Z</updated>
+    <summary></summary>
+    <content type="html"><![CDATA[<h1>Publishing is the start, not the end</h1>
+<p>The paper is published. You get the acceptance email. You update your CV. Then what?</p>
+<p>For most research projects, this is the end. The code sits in a GitHub repo nobody visits. The data lives on a lab server that gets wiped when a postdoc leaves. The paper itself is behind a paywall, locked at a single snapshot.</p>
+<p>This isn&#39;t anyone&#39;s fault. There&#39;s no incentive structure for what happens <em>after</em> publication. The system rewards the acceptance letter, not what you leave behind.</p>
+<p>For PrettyMouth, we tried something different.</p>
+<h2>The paper</h2>
+<p>PrettyMouth is a study about how context changes the way brains process stories. Two groups of listeners heard the same audio recording, preceded by different framing paragraphs. We fit Hidden Markov Models to fMRI data and found that context shifted brain state dynamics in measurable ways. The paper came out in <em>Imaging Neuroscience</em> in 2026.</p>
+<p>That part is standard. The rest is not.</p>
+<h2>One repo, three archives</h2>
+<p>We built the repository around a simple idea: every piece of the research should have a permanent home, and those homes should all point to each other.</p>
+<p>The repo itself lives at <a href="https://github.com/yibeichan/prettymouth">github.com/yibeichan/prettymouth</a>. It contains the full analysis pipeline — numbered scripts from postprocessing through the GLMM, figure notebooks, methodological notes, and environment files. Someone with a DataLad client and a SLURM cluster can reproduce the entire analysis from scratch.</p>
+<p>But a GitHub repo is not an archive. So we also created:</p>
+<ul>
+<li><strong>A Zenodo concept DOI</strong> (<a href="https://doi.org/10.5281/zenodo.20369772">10.5281/zenodo.20369772</a>) that captures a frozen snapshot of the code at the exact commit used for publication. The concept DOI is permanent and always resolves to the latest version. Each new version gets its own DOI too.</li>
+<li><strong>An OSF project</strong> (<a href="https://osf.io/7aqth/">osf.io/7aqth</a>) for derived outputs. The raw fMRI data lives in the Hasson lab narratives dataset via DataLad. But the HMM fits, cluster solutions, and GLMM results — roughly 6.3 GB of derived data — are on OSF under CC-BY-4.0, with provenance docs and manifest files.</li>
+</ul>
+<p>The README links all three. So does the CITATION.cff file, which also links to the paper itself.</p>
+<p>The result is what I think of as an artifact cluster: paper, code, data, and metadata, each in the right place, all pointing to each other.</p>
+<h2>The tag that matters</h2>
+<p>The most important commit in the repo is <code>v1.0-published</code>. It marks the exact codebase that produced the published results. If you check out that tag today, or three years from now, you get the same code.</p>
+<p>Zenodo points to this tag. The paper cites this tag. The OSF data archive references the commit SHA. If someone finds a bug in a later version, they can always go back to what was actually published.</p>
+<p>This is not the same as &quot;the repo is maintained.&quot; The tag holds the published version steady so the main branch can keep evolving.</p>
+<h2>The AGENTS.md file</h2>
+<p>One thing we did that I haven&#39;t seen elsewhere: we added an AGENTS.md file to the repo. It documents the frozen-pipeline boundaries, known gotchas, and naming conventions — but written for AI coding agents.</p>
+<p>This came from a practical observation. Reproducibility used to mean &quot;a human can reproduce the results.&quot; Increasingly, it also means &quot;an AI agent can understand and work with this code without hallucinating changes to frozen analysis steps.&quot; The AGENTS.md file tells an agent which parts of the pipeline are frozen, which can be modified, and where common mistakes happen.</p>
+<p>I do not know if this pattern will last. But it costs nothing to add and it already saved us time when a Claude Code agent needed context about the repository.</p>
+<h2>Why this matters</h2>
+<p>The standard workflow for research code is: write it, submit it, archive a zip, move on.</p>
+<p>The problem with that workflow is that nobody actually reproduces results from a zip file. What they do is: find the repo, clone it, try to run it, discover missing dependencies, file an issue, and give up. The zip file satisfies a journal requirement. The repo does the actual work of enabling reuse.</p>
+<p>By treating the repository as a first-class artifact — with its own DOI, its own data archive, its own conventions for versioning and AI access — we built something people can use, not just cite.</p>
+<p>The paper is the argument. The repo is the evidence. The data is the raw material. All three should outlast the postdoc who wrote them.</p>
+<h2>What I would do differently</h2>
+<p>Nothing major. But if I were starting over, I would:</p>
+<ul>
+<li>Add a Dockerfile or container definition to the repo, so the environment is fully self-contained without relying on conda channels staying live.</li>
+<li>Set up a scheduled CI check that verifies the analysis still runs, even if nothing has changed. Reproducibility should be tested, not assumed.</li>
+<li>Write the AGENTS.md file earlier. It is easier to document conventions as you build them than to reconstruct them later.</li>
+</ul>
+<p>These are small changes. The cost of each is measured in hours. The benefit is measured in the lifetime of the research.</p>
+<h2>The broader idea</h2>
+<p>A paper is the start of a research project&#39;s useful life, not the end of it.</p>
+<p>The audience for a paper is small — the handful of people in your subfield who read it. The audience for a working repo with data, documentation, and a CI badge is much larger. It includes researchers in adjacent fields, students learning the methods, and people who would never find your paper but will find your code when they search for &quot;HMM fMRI narrative.&quot;</p>
+<p>A project that ends with a paper and one that continues after publication differ in one thing: how you think about what you are leaving behind.</p>
+<p>PrettyMouth is one example. The same pattern works for any project. A tag. A DOI. A README that links everything together. An AGENTS.md if you want to be early on something. None of it is hard. You just have to decide that publishing is not the last thing you do with your research.</p>
+]]></content>
+  </entry>
   <entry>
     <title>From DICOMs to fMRIPrep in One Conversation</title>
     <link href="https://yibeichen.me/blog/dicom2fmriprep" rel="alternate" />
