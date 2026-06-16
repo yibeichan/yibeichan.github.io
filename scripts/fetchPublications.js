@@ -26,6 +26,142 @@ if (!ORCID_ID) {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function normalizeTitle(title = '') {
+  return title
+    .toLowerCase()
+    .replace(/^pregistered/, 'preregistered')
+    .replace(/\s*\(preprint\)\s*$/, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function publicationKey(publication) {
+  if (publication.doi) {
+    return `doi:${publication.doi.toLowerCase()}`;
+  }
+
+  return `title:${normalizeTitle(publication.title)}`;
+}
+
+function inferStatus(publication) {
+  const text = [
+    publication.journal,
+    publication.url,
+    publication.doi,
+    publication.title
+  ].filter(Boolean).join(' ').toLowerCase();
+
+  const preprintSignals = [
+    'preprint',
+    'biorxiv',
+    'medrxiv',
+    'arxiv',
+    'osf',
+    'psyarxiv',
+    'chemrxiv',
+    'research square',
+    'ssrn',
+    '10.1101',
+    '10.31219',
+    '10.48550',
+    '10.21203',
+    '10.64898'
+  ];
+
+  return preprintSignals.some(signal => text.includes(signal)) ? 'preprint' : 'published';
+}
+
+function mergePublication(existing, incoming) {
+  return {
+    ...incoming,
+    title: existing.title || incoming.title,
+    authors: existing.authors?.length ? existing.authors : incoming.authors,
+    journal: existing.journal || incoming.journal,
+    year: existing.year || incoming.year,
+    url: incoming.url || existing.url || null,
+    doi: existing.doi || incoming.doi || null,
+    tags: existing.tags?.length ? existing.tags : incoming.tags || [],
+    status: existing.status || incoming.status || inferStatus(incoming)
+  };
+}
+
+function normalizePublication(publication) {
+  return {
+    ...publication,
+    tags: publication.tags || [],
+    status: publication.status || inferStatus(publication)
+  };
+}
+
+function dedupePublications(publications) {
+  const byKey = new Map();
+
+  for (const publication of publications.map(normalizePublication)) {
+    const key = publicationKey(publication);
+    if (byKey.has(key)) {
+      byKey.set(key, mergePublication(byKey.get(key), publication));
+    } else {
+      byKey.set(key, publication);
+    }
+  }
+
+  const byTitle = new Map();
+  for (const publication of byKey.values()) {
+    const titleKey = normalizeTitle(publication.title);
+    if (byTitle.has(titleKey)) {
+      byTitle.set(titleKey, mergePublication(byTitle.get(titleKey), publication));
+    } else {
+      byTitle.set(titleKey, publication);
+    }
+  }
+
+  return Array.from(byTitle.values());
+}
+
+function mergeWithCuratedPublications(fetchedPublications, existingPublications) {
+  if (!existingPublications.length) {
+    return dedupePublications(fetchedPublications);
+  }
+
+  const fetchedByDoi = new Map();
+  const fetchedByTitle = new Map();
+
+  for (const publication of fetchedPublications) {
+    if (publication.doi) {
+      fetchedByDoi.set(publication.doi.toLowerCase(), publication);
+    }
+    fetchedByTitle.set(normalizeTitle(publication.title), publication);
+  }
+
+  const usedFetched = new Set();
+  const merged = existingPublications.map(existing => {
+    const fetched = (existing.doi && fetchedByDoi.get(existing.doi.toLowerCase())) ||
+      fetchedByTitle.get(normalizeTitle(existing.title));
+
+    if (!fetched) {
+      return normalizePublication(existing);
+    }
+
+    usedFetched.add(fetched);
+    return mergePublication(existing, fetched);
+  });
+
+  for (const fetched of fetchedPublications) {
+    if (usedFetched.has(fetched)) continue;
+
+    const duplicate = merged.some(existing => (
+      (existing.doi && fetched.doi && existing.doi.toLowerCase() === fetched.doi.toLowerCase()) ||
+      normalizeTitle(existing.title) === normalizeTitle(fetched.title)
+    ));
+
+    if (!duplicate) {
+      merged.push(normalizePublication(fetched));
+    }
+  }
+
+  return dedupePublications(merged);
+}
+
 async function fetchWithRetry(url, options, maxRetries = 8, initialBackoff = 5000) {
   let lastError;
   let backoff = initialBackoff;
@@ -196,24 +332,31 @@ async function fetchPublications() {
     
     const outputPath = path.join(outputDir, 'publications.json');
     
+    let existingPublications = [];
+
     // Backup existing file if it exists
     try {
       const stats = await fs.stat(outputPath);
       if (stats.isFile()) {
+        existingPublications = JSON.parse(await fs.readFile(outputPath, 'utf8'));
         const backupPath = path.join(outputDir, `publications.backup.${Date.now()}.json`);
         await fs.copyFile(outputPath, backupPath);
         console.log(`Backed up existing publications to ${backupPath}`);
       }
     } catch (error) {
-      // File likely doesn't exist, continue
+      if (error.code !== 'ENOENT') {
+        throw new Error(`Unable to read existing publications.json: ${error.message}`);
+      }
     }
     
+    const mergedPublications = mergeWithCuratedPublications(publications, existingPublications);
+
     await fs.writeFile(
       outputPath,
-      JSON.stringify(publications, null, 2)
+      JSON.stringify(mergedPublications, null, 2)
     );
 
-    console.log(`Successfully saved ${publications.length} publications!`);
+    console.log(`Successfully saved ${mergedPublications.length} publications!`);
   } catch (error) {
     console.error('Error fetching publications:', error.message);
     // Don't overwrite existing publications.json if fetch fails
