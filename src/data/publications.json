@@ -12,7 +12,11 @@
     "year": "2026",
     "url": "https://doi.org/10.64898/2026.05.31.729141",
     "doi": "10.64898/2026.05.31.729141",
-    "tags": ["Neuroimaging", "Brain States", "Naturalistic fMRI"],
+    "tags": [
+      "Neuroimaging",
+      "Brain States",
+      "Naturalistic fMRI"
+    ],
     "status": "preprint"
   },
   {
@@ -27,7 +31,11 @@
     "year": "2026",
     "url": "https://doi.org/10.64898/2026.03.23.713749",
     "doi": "10.64898/2026.03.23.713749",
-    "tags": ["Neuroimaging", "Autism", "Naturalistic fMRI"],
+    "tags": [
+      "Neuroimaging",
+      "Autism",
+      "Naturalistic fMRI"
+    ],
     "status": "preprint"
   },
   {
@@ -43,7 +51,11 @@
     "year": "2026",
     "url": "https://doi.org/10.1162/IMAG.a.1116",
     "doi": "10.1162/IMAG.a.1116",
-    "tags": ["Neuroimaging", "Brain States", "Narrative"],
+    "tags": [
+      "Neuroimaging",
+      "Brain States",
+      "Narrative"
+    ],
     "status": "published"
   },
   {
@@ -73,7 +85,11 @@
     "year": "2025",
     "url": "https://doi.org/10.2196/63343",
     "doi": "10.2196/63343",
-    "tags": ["Reproducibility", "Methods", "Open Source"],
+    "tags": [
+      "Reproducibility",
+      "Methods",
+      "Open Source"
+    ],
     "status": "published"
   },
   {
@@ -94,7 +110,10 @@
     "year": "2025",
     "url": "https://doi.org/10.1101/2025.06.24.660932",
     "doi": "10.1101/2025.06.24.660932",
-    "tags": ["Decision Making", "Social Neuroscience"],
+    "tags": [
+      "Decision Making",
+      "Social Neuroscience"
+    ],
     "status": "preprint"
   },
   {
@@ -109,7 +128,11 @@
     "year": "2024",
     "url": "https://doi.org/10.1080/1369118X.2023.2246551",
     "doi": "10.1080/1369118X.2023.2246551",
-    "tags": ["Social Media", "Discourse Analysis", "Moral Psychology"],
+    "tags": [
+      "Social Media",
+      "Discourse Analysis",
+      "Moral Psychology"
+    ],
     "status": "published"
   },
   {
@@ -140,7 +163,11 @@
     "year": "2024",
     "url": "https://doi.org/10.1162/imag_a_00074",
     "doi": "10.1162/imag_a_00074",
-    "tags": ["BIDS", "Neuroimaging", "Reproducibility"],
+    "tags": [
+      "BIDS",
+      "Neuroimaging",
+      "Reproducibility"
+    ],
     "status": "published"
   },
   {
@@ -152,9 +179,13 @@
     ],
     "journal": "Journal of Computer-Mediated Communication",
     "year": "2024",
-    "url": "https://doi.org/10.1093/jcmc/zmad047",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85184854408&partnerID=MN8TOARS",
     "doi": "10.1093/jcmc/zmad047",
-    "tags": ["AI", "Gender Studies", "Media"],
+    "tags": [
+      "AI",
+      "Gender Studies",
+      "Media"
+    ],
     "status": "published"
   },
   {
@@ -168,9 +199,12 @@
     ],
     "journal": "Communication Methods and Measures",
     "year": "2024",
-    "url": "https://doi.org/10.1080/19312458.2023.2230866",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85164662767&partnerID=MN8TOARS",
     "doi": "10.1080/19312458.2023.2230866",
-    "tags": ["Computational Social Science", "Persuasion"],
+    "tags": [
+      "Computational Social Science",
+      "Persuasion"
+    ],
     "status": "published"
   },
   {
@@ -186,7 +220,11 @@
     "year": "2024",
     "url": "https://doi.org/10.31219/osf.io/epbhx",
     "doi": "10.31219/osf.io/epbhx",
-    "tags": ["Neuroimaging", "QA/QC", "Diffusion MRI"],
+    "tags": [
+      "Neuroimaging",
+      "QA/QC",
+      "Diffusion MRI"
+    ],
     "status": "preprint"
   },
   {
@@ -201,7 +239,11 @@
     "year": "2023",
     "url": "https://doi.org/10.1016/j.chb.2023.107829",
     "doi": "10.1016/j.chb.2023.107829",
-    "tags": ["Media", "Network Analysis", "Attention"],
+    "tags": [
+      "Media",
+      "Network Analysis",
+      "Attention"
+    ],
     "status": "published"
   },
   {
@@ -217,7 +259,11 @@
     "year": "2023",
     "url": "https://doi.org/10.1016/j.neuropsychologia.2023.108635",
     "doi": "10.1016/j.neuropsychologia.2023.108635",
-    "tags": ["Decision Making", "Game Theory", "Social Neuroscience"],
+    "tags": [
+      "Decision Making",
+      "Game Theory",
+      "Social Neuroscience"
+    ],
     "status": "published"
   },
   {
@@ -232,9 +278,13 @@
     ],
     "journal": "Biological Psychiatry",
     "year": "2024",
-    "url": "https://doi.org/10.1016/j.biopsych.2024.02.056",
+    "url": "http://dx.doi.org/10.1016/j.biopsych.2024.02.056",
     "doi": "10.1016/j.biopsych.2024.02.056",
-    "tags": ["BIDS", "Neuroimaging", "Reproducibility"],
+    "tags": [
+      "BIDS",
+      "Neuroimaging",
+      "Reproducibility"
+    ],
     "status": "published"
   },
   {
@@ -250,9 +300,13 @@
     ],
     "journal": "Frontiers in Neuroimaging",
     "year": "2022",
-    "url": "https://doi.org/10.3389/fnimg.2022.953215",
+    "url": "http://dx.doi.org/10.3389/fnimg.2022.953215",
     "doi": "10.3389/fnimg.2022.953215",
-    "tags": ["Neuroimaging", "Reproducibility", "fMRI"],
+    "tags": [
+      "Neuroimaging",
+      "Reproducibility",
+      "fMRI"
+    ],
     "status": "published"
   },
   {
@@ -265,9 +319,13 @@
     ],
     "journal": "Journal of Language and Social Psychology",
     "year": "2021",
-    "url": "https://doi.org/10.1177/0261927X211044194",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85117107639&partnerID=MN8TOARS",
     "doi": "10.1177/0261927X211044194",
-    "tags": ["COVID-19", "Moral Psychology", "Language"],
+    "tags": [
+      "COVID-19",
+      "Moral Psychology",
+      "Language"
+    ],
     "status": "published"
   },
   {
@@ -282,9 +340,13 @@
     ],
     "journal": "Eating and Weight Disorders",
     "year": "2021",
-    "url": "https://doi.org/10.1007/s40519-020-00886-8",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85082644883&partnerID=MN8TOARS",
     "doi": "10.1007/s40519-020-00886-8",
-    "tags": ["Health Communication", "Media", "China"],
+    "tags": [
+      "Health Communication",
+      "Media",
+      "China"
+    ],
     "status": "published"
   },
   {
@@ -298,9 +360,13 @@
     ],
     "journal": "International Journal of Eating Disorders",
     "year": "2020",
-    "url": "https://doi.org/10.1002/eat.23154",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85070873655&partnerID=MN8TOARS",
     "doi": "10.1002/eat.23154",
-    "tags": ["Health Communication", "Media", "Eating Disorders"],
+    "tags": [
+      "Health Communication",
+      "Media",
+      "Eating Disorders"
+    ],
     "status": "published"
   },
   {
@@ -313,9 +379,13 @@
     ],
     "journal": "Telematics and Informatics",
     "year": "2020",
-    "url": "https://doi.org/10.1016/j.tele.2020.101433",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85085288433&partnerID=MN8TOARS",
     "doi": "10.1016/j.tele.2020.101433",
-    "tags": ["AI", "Media", "Emerging Technologies"],
+    "tags": [
+      "AI",
+      "Media",
+      "Emerging Technologies"
+    ],
     "status": "published"
   },
   {
@@ -329,9 +399,13 @@
     ],
     "journal": "International Journal of Environmental Research and Public Health",
     "year": "2020",
-    "url": "https://doi.org/10.3390/ijerph17186711",
+    "url": "http://www.scopus.com/inward/record.url?eid=2-s2.0-85090905921&partnerID=MN8TOARS",
     "doi": "10.3390/ijerph17186711",
-    "tags": ["Health Communication", "E-Cigarettes", "China"],
+    "tags": [
+      "Health Communication",
+      "E-Cigarettes",
+      "China"
+    ],
     "status": "published"
   }
 ]
